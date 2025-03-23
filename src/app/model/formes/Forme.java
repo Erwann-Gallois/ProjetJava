@@ -41,5 +41,5 @@ public interface Forme extends ModeleEcoutable {
      * @return couleur de la forme
      */
     public Color getColor();
-    
+
 }

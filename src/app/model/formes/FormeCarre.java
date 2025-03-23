@@ -2,7 +2,6 @@ package app.model.formes;
 
 public class FormeCarre extends AbstractForme{
 
-
     /**
      * Constructeur de la forme carré et rectangle.
      * @param width hauteur
@@ -13,9 +12,9 @@ public class FormeCarre extends AbstractForme{
         super("(Carre,"+width+","+length);
 
         
-        if(length <= 2 && width <= 2 ){
-            throw new ExceptionInInitializerError("Impossible de créer la forme avec ces paramètres (Valeurs trop petites)");
-        }
+        // if(length <= 2 && width <= 2 ){
+        //     throw new ExceptionInInitializerError("Impossible de créer la forme avec ces paramètres (Valeurs trop petites)");
+        // }
 
         Boolean[][] formeCarre = new Boolean[width][length];
 
@@ -34,10 +33,4 @@ public class FormeCarre extends AbstractForme{
         AbstractForme.ensConfig.put("(Carre,"+width+","+length+")", formeCarre);
 
     }
-
-
-
-
-    
-
 }

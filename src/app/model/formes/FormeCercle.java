@@ -1,8 +1,7 @@
 package app.model.formes;
 
-
-
 public class FormeCercle extends AbstractForme {
+
     /**
      * Constructeur de la forme cercle.
      * @param width hauteur
@@ -11,7 +10,6 @@ public class FormeCercle extends AbstractForme {
     public FormeCercle(int width, int length){
 
         super("(Cercle,"+width+","+length);
-        
         if(length%2==0 || width%2==0){
            throw new ExceptionInInitializerError("Impossible de créer la forme avec ces paramètres (Valeurs trop petites)");
         }
@@ -33,5 +31,4 @@ public class FormeCercle extends AbstractForme {
         AbstractForme.ensConfig.put("(Cercle,"+width+","+length+")", formeCercle);
 
     }
-
 }

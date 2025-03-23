@@ -89,4 +89,5 @@ public abstract class AbstractForme extends AbstractModeleEcoutable implements F
         }
         return res;
     }
+
 }
