@@ -2,6 +2,7 @@ package app.model.dessin;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
+import java.awt.Shape;
 
 public class ShapeDrawer extends JFrame {
     private ShapeButtonPanel shapeButtonPanel;
@@ -24,5 +25,13 @@ public class ShapeDrawer extends JFrame {
         add(drawingPanel, BorderLayout.CENTER);
 
         // Set the shape provider after initialization
+    }
+
+    public DrawingPanel getDrawingPanel() {
+        return drawingPanel;
+    }
+
+    public ShapeButtonPanel getShapeButtonPanel() {
+        return shapeButtonPanel;
     }
 }

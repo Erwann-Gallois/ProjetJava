@@ -47,7 +47,6 @@ public class DrawingPanel extends JPanel implements ShapeProvider {
 
     private Shape createShape(int x1, int y1, int x2, int y2) {
         if (shapeButtonPanel.getCurrentShape().equals("rectangle")) {
-            System.out.println("Rectangle");
             int x = Math.min(x1, x2);
             int y = Math.min(y1, y2);
             int width = Math.abs(x1 - x2);

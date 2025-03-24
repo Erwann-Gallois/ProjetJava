@@ -1,8 +1,15 @@
 package app.model.dessin;
 
 import javax.swing.*;
+
+import app.model.formes.AbstractForme;
+import app.model.formes.FormeCarre;
+import app.model.formes.FormeCercle;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Map;
 import java.awt.BorderLayout;
 import java.awt.Shape;
 
@@ -15,6 +22,7 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     private String currentShape = "rectangle";
     private JLabel shapeLabel;
     private ShapeProvider shapeProvider;
+    private ArrayList<AbstractForme> formesdessine = new ArrayList<>();
 
     public ShapeButtonPanel(ShapeProvider shapeProvider) {
         this.shapeProvider = shapeProvider;
@@ -45,12 +53,16 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
             shapeLabel.setText("Selected Shape: Circle");
         } else if (e.getSource() == termineButton) {
             // Print all drawn shapes
-            for (Shape shape : shapeProvider.getShapes().values()) {
-                System.out.println("--------------------");
-                System.out.println("Points: (" + shape.getBounds().x + ", " + shape.getBounds().y + ")");
-                System.out.println("Width: " + shape.getBounds().width);
-                System.out.println("Height: " + shape.getBounds().height);
-                System.out.println("--------------------");
+            for (Map.Entry<String, Shape> entry : shapeProvider.getShapes().entrySet()) {
+                if (entry.getKey().contains("rectangle")) {
+                    FormeCarre rect = new FormeCarre(entry.getValue().getBounds().width,
+                            entry.getValue().getBounds().height);
+                    formesdessine.add(rect);
+                } else if (entry.getKey().contains("circle")) {
+                    FormeCercle cercle = new FormeCercle(entry.getValue().getBounds().width,
+                            entry.getValue().getBounds().height);
+                    formesdessine.add(cercle);
+                }
             }
         }
     }
@@ -65,5 +77,9 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
 
     public int getNbreCircle() {
         return nbreCircle;
+    }
+
+    public ArrayList<AbstractForme> getFormesDessine() {
+        return formesdessine;
     }
 }
