@@ -1,11 +1,10 @@
 package app.model.dessin;
 
-import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+import javax.swing.*;
 
 public class DrawingPanel extends JPanel {
     private Point startPoint;
@@ -66,12 +65,14 @@ public class DrawingPanel extends JPanel {
 
         // Draw all shapes
         for (Shape shape : shapes) {
+            g2d.setColor(Color.black);
             g2d.draw(shape);
         }
 
         // Draw the current shape being dragged
         if (startPoint != null && endPoint != null) {
             Shape shape = createShape(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+            g2d.setColor(Color.lightGray);
             g2d.draw(shape);
         }
     }
