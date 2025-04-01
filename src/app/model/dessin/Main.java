@@ -5,6 +5,8 @@ public class Main {
         javax.swing.SwingUtilities.invokeLater(() -> {
             ShapeDrawer frame = new ShapeDrawer();
             frame.setVisible(true);
+            frame.displayRandomShapes();
+            frame.freeze(10);
         });
     }
 }
