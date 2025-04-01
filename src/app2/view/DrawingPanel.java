@@ -1,16 +1,10 @@
 package app2.view;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-
-import javax.swing.*;
-
-import app2.model.formes.FormeCarre;
-import app2.model.formes.FormeCercle;
-
-import java.util.HashMap;
-
 import java.awt.event.*;
+import java.awt.geom.Ellipse2D;
+import java.util.HashMap;
+import javax.swing.*;
 
 
 public class DrawingPanel extends JPanel {
@@ -19,10 +13,10 @@ public class DrawingPanel extends JPanel {
     private HashMap<String, Shape> shapes = new HashMap<>();
     private ShapeButtonPanel shapeButtonPanel;
     
-    public DrawingPanel(ShapeButtonPanel shapeButtonPanel2) {
+    public DrawingPanel(ShapeButtonPanel shapeButtonPanel) {
         setPreferredSize(new Dimension(800, 600));
         setBackground(Color.WHITE);
-        shapeButtonPanel = shapeButtonPanel2;
+        this.shapeButtonPanel = shapeButtonPanel;
         MouseAdapter mouseHandler = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -62,15 +56,31 @@ public class DrawingPanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+        // super.paintComponent(g);
+        // for (Shape shape : shapes.values()) {
+        //     if (shape instanceof Rectangle) {
+        //         g.fillRect((int) shape.getBounds2D().getX(), (int) shape.getBounds2D().getY(), (int) shape.getBounds2D().getWidth(), (int) shape.getBounds2D().getHeight());
+        //         System.out.print("On dessine");
+        //     } else if (shape instanceof Ellipse2D.Double) {
+        //         g.fillOval((int) shape.getBounds2D().getX(), (int) shape.getBounds2D().getY(), (int) shape.getBounds2D().getWidth(), (int) shape.getBounds2D().getHeight());
+        //         System.out.print("On dessine");
+        //     }
+        // }
         super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Draw all shapes
         for (Shape shape : shapes.values()) {
-            if (shape instanceof Rectangle) {
-                g.fillRect((int) shape.getBounds2D().getX(), (int) shape.getBounds2D().getY(), (int) shape.getBounds2D().getWidth(), (int) shape.getBounds2D().getHeight());
-                System.out.print("On dessine");
-            } else if (shape instanceof Ellipse2D.Double) {
-                g.fillOval((int) shape.getBounds2D().getX(), (int) shape.getBounds2D().getY(), (int) shape.getBounds2D().getWidth(), (int) shape.getBounds2D().getHeight());
-                System.out.print("On dessine");
-            }
+            g2d.setColor(Color.black);
+            g2d.draw(shape);
+        }
+
+        // Draw the current shape being dragged
+        if (startPoint != null && endPoint != null) {
+            Shape shape = createShape(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+            g2d.setColor(Color.lightGray);
+            g2d.draw(shape);
         }
     }
 
