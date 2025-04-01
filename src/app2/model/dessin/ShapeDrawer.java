@@ -1,15 +1,12 @@
 package app2.model.dessin;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
+import app2.model.formes.Forme;
+import app2.model.formes.FormeCarre;
+import app2.model.formes.FormeCercle;
+import app2.view.GameView;
 import java.util.ArrayList;
 import java.util.Random;
-import app2.view.GameView;
-import app2.model.formes.Forme;
-import app2.model.formes.FormeCercle;
-import app2.model.formes.FormeCarre;
+import javax.swing.*;
 
 public class ShapeDrawer extends JFrame {
     private GameView gameView;
@@ -22,7 +19,8 @@ public class ShapeDrawer extends JFrame {
 
     public void displayRandomShapes() {
         Random rand = new Random();
-        for (int i = 0; i < rand.nextInt(); i++) {  // Par exemple, générer 5 formes
+        int nb = rand.nextInt(1, 11);
+        for (int i = 0; i < nb; i++) {  // Par exemple, générer 5 formes
             if (rand.nextBoolean()) {
                 // Créer un carré
                 FormeCarre forme = new FormeCarre(rand.nextInt(50,500), rand.nextInt(50,500),rand.nextInt(50,250));

@@ -93,7 +93,6 @@ public class DrawingPanel extends JPanel {
             return new Rectangle(x, y, width, height);
 
         } else if (shapeButtonPanel.getCurrentShape().equals("circle")) {
-            System.out.println("Circle");
             int x = Math.min(x1, x2);
             int y = Math.min(y1, y2);
             int width = Math.abs(x1 - x2);
