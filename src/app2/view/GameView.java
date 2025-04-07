@@ -12,6 +12,7 @@ public class GameView extends JFrame {
     private JButton replayButton;
     private JLabel scoreLabel;
     private ShapeDrawer shapeDrawer;
+    private boolean randomShapesMode = false;
 
     public GameView() {
         setTitle("Dessin de formes");
@@ -55,5 +56,16 @@ public class GameView extends JFrame {
 
     public DrawingPanel getDrawingPanel() {
         return drawingPanel;
+    }
+
+    public void setRandomShapesMode(boolean mode) {
+        this.randomShapesMode = mode;
+        if (randomShapesMode) {
+            // Désactiver le bouton de dessin de formes aléatoires
+            shapeButtonPanel.setRandomShapeButtonEnabled(false);
+            shapeDrawer.displayRandomShapes();
+        } else {
+            shapeButtonPanel.setRandomShapeButtonEnabled(true);
+        }
     }
 }

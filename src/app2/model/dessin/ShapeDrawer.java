@@ -18,6 +18,8 @@ public class ShapeDrawer extends JFrame {
     }
 
     public void displayRandomShapes() {
+        gameView.getDrawingPanel().getShapes().clear();
+        originalShapes.clear();
         Random rand = new Random();
         int nb = rand.nextInt(1, 11);
         for (int i = 0; i < nb; i++) {  // Par exemple, générer 5 formes

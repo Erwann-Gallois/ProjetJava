@@ -12,6 +12,7 @@ public class DrawingPanel extends JPanel {
     private Point endPoint;
     private HashMap<String, Shape> shapes = new HashMap<>();
     private ShapeButtonPanel shapeButtonPanel;
+    private boolean randomShapesMode = false;
     
     public DrawingPanel(ShapeButtonPanel shapeButtonPanel) {
         setPreferredSize(new Dimension(800, 600));
@@ -47,6 +48,11 @@ public class DrawingPanel extends JPanel {
 
     public void addShape(String id, Shape forme) {
         shapes.put(id, forme);
+        repaint();
+    }
+
+    public void clearShapes() {
+        shapes.clear();
         repaint();
     }
 
@@ -106,6 +112,10 @@ public class DrawingPanel extends JPanel {
     // Method to set the shape button panel
     public void setShapeButtonPanel(ShapeButtonPanel newshapeButtonPanel) {
         this.shapeButtonPanel = newshapeButtonPanel;
+    }
+
+    public void setRandomShapesMode(boolean mode) {
+        this.randomShapesMode = mode;
     }
 
 }
