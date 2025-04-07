@@ -16,6 +16,7 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     private JButton rectangleButton;
     private JButton circleButton;
     private JButton termineButton;
+    private JButton generateShapesButton;
     private int nbreRectangle = 0;
     private int nbreCircle = 0;
     private String currentShape = "rectangle";
@@ -26,7 +27,7 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     public ShapeButtonPanel(ShapeDrawer shapeDrawer2) {
         this.shapeDrawer = shapeDrawer2;
         setLayout(new FlowLayout());
-        JButton generateShapesButton = new JButton("Generer des formes");
+        generateShapesButton = new JButton("Generer des formes");
         generateShapesButton.addActionListener(e -> shapeDrawer.displayRandomShapes());
         add(generateShapesButton);
         rectangleButton = new JButton("Rectangle");
@@ -75,5 +76,9 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     public ArrayList<Forme> getFormesDessine() {
         return formesdessine;
     }
-    
+
+    public void setRandomShapeButtonEnabled(boolean b) {
+        generateShapesButton.setEnabled(b);
+    }
+
 }
