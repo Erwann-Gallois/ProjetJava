@@ -28,7 +28,7 @@ public class FrameGame extends JFrame implements EcouteurModele, ActionListener 
      */
     public FrameGame(Orchestrator orch){
 
-        // Transforme l'objet BatailleGUI en JFrame
+        // Transformation en JFrame
         super("Partie");
         orch.ajoutEcouteur(this);
         orch.getPlayer1().getPuzzleGrid().ajoutEcouteur(this);
@@ -49,20 +49,13 @@ public class FrameGame extends JFrame implements EcouteurModele, ActionListener 
         
         
         //Création des Bouttons
-        this.toLeft = new JButton("turn L");
-        this.toRight = new JButton("turn right");
         this.toEnd = new JButton("Fin de partie");
         this.toExit = new JButton("Retour Menu");
 
 
         //Ajout de l'action aux bouttons
-        this.toLeft.addActionListener(this);
-        this.toRight.addActionListener(this);
         this.toEnd.addActionListener(this);
         this.toExit.addActionListener(this);
-
-        this.toLeft.setPreferredSize(new Dimension(100,50));
-        this.toRight.setPreferredSize(new Dimension(100,50));
         this.toEnd.setPreferredSize(new Dimension(100,50));
         this.toExit.setPreferredSize(new Dimension(100,50));
 
@@ -127,9 +120,6 @@ public class FrameGame extends JFrame implements EcouteurModele, ActionListener 
         
         this.nbRestant.setText("Nombre de pièces restant : "+orch.getPlayer1().getPuzzleList().size());
         
-        JPanel buttonRightLeftPanel = new JPanel();
-        buttonRightLeftPanel.add(this.toLeft);
-        buttonRightLeftPanel.add(this.toRight);
 
 
         //Panneau contenant les bouttons de panneau Info
@@ -137,7 +127,6 @@ public class FrameGame extends JFrame implements EcouteurModele, ActionListener 
         buttonPannel.setLayout(new GridLayout(2,2,20,20));
         buttonPannel.add(this.nbRestant);
         buttonPannel.add(this.toExit);
-        buttonPannel.add(buttonRightLeftPanel);
         buttonPannel.add(this.toEnd);
 
 

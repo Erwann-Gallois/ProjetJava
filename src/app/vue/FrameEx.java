@@ -30,11 +30,13 @@ public class FrameEx extends JFrame{
           dispose();
         }});
         //zone de texte non-modifiable pour les explications
-        JTextArea area=new JTextArea("Le but de ce devoir est de réaliser une application de jeu, dotée d'une interface graphique,qui consiste à assembler des formes de sorte qu'elles occupent le moins de place possible.\r\n" + "\n" +
-            "L'idée s'inspire du fameux Tetris : \r\n" + 
-                "- avec des pièces de différentes formes(T,L,Rectangle,U) \r\n" +
-                "- avec une IA en adversaire \r\n"+ "\n" +
-                "On peut utiliser, pour bouger les pièces, le clavier ou des bouttons sur le jeu. ");  
+        JTextArea area=new JTextArea("Cette application est un jeu de mémorisation de formes.\r\n" + "\n" +
+            "Le but est de mémoriser et redessiner les formes qui apparaitront à l'écran. \r\n" + "\n"+
+            "Cette application est : \r\n"+
+                "- Jouable avec différentes formes ( dont Rectangle, Cercle, triangle ) \r\n" +
+                "- Jouable en un ou deux joueurs \r\n"+ 
+                "- générer avec une frame prédéfinie de formes"+"\n" +
+                "On peut utiliser des bouttons pour selectionner la forme à dessiner. ");  
         area.setBounds(125,150, 750,150);
         area.setEditable(false);
         area.setLineWrap(true);

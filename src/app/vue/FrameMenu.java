@@ -24,7 +24,7 @@ public class FrameMenu extends JFrame implements ActionListener{
         panel.setBorder(new EmptyBorder(new Insets(getHeight()/10,SwingConstants.CENTER,getHeight()/10,0)));
         panel.setBackground(new Color(0, 0, 0, 0));
 
-        //Création des boutons pour le LSystem2D,LSysteme3D,les Explications et Quitter.
+        //Création des boutons pour lancer le jeu ,les Explications et Quitter.
         btn1 = new JButton("Jouer");
         btn2 = new JButton("Explications");
         btnQuit = new JButton("Quitter");
@@ -42,12 +42,9 @@ public class FrameMenu extends JFrame implements ActionListener{
         btnQuit.addActionListener(this);
         panel.add(btnQuit);
 
-        //source de l'image Ubisoft:
-        Background bg = new Background("image", "images/tetris.jpg");
+        //source de l'image : dessin réalisé par nos soins
+        Background bg = new Background("image", "images/menu.png");
         //rendre la Frame visible et ajouter Panel à la Frame
-        
-        
-        //add(panel);
         setContentPane(bg);
         //setLayout(new BorderLayout());
         add(panel);
@@ -61,7 +58,7 @@ public class FrameMenu extends JFrame implements ActionListener{
         if(e.getSource() == btn1){
             //creation de la JFrame et de son paramétrage
             JFrame fen = new FrameParam();
-            fen.setTitle("Tetris");
+            fen.setTitle("Mémorie déssin");
             fen.setSize(800, 800);
             fen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             fen.setVisible(true);
