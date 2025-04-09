@@ -1,17 +1,19 @@
 package app2.model.dessin;
 
-import app2.model.formes.Forme;
-import app2.model.formes.FormeCarre;
-import app2.model.formes.FormeCercle;
 import app2.view.GameView;
-import java.util.ArrayList;
-import java.util.Random;
+
 import javax.swing.*;
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Random;
 
 public class ShapeDrawer extends JFrame {
     private GameView gameView;
-    private ArrayList<Forme> originalShapes;
-    
+    private ArrayList<Shape> originalShapes;
+
     public ShapeDrawer(GameView gameView) {
         this.gameView = gameView;
         originalShapes = new ArrayList<>();
@@ -22,47 +24,59 @@ public class ShapeDrawer extends JFrame {
         originalShapes.clear();
         Random rand = new Random();
         int nb = rand.nextInt(1, 11);
-        for (int i = 0; i < nb; i++) {  // Par exemple, générer 5 formes
+
+        for (int i = 0; i < nb; i++) {
+            Shape shape;
             if (rand.nextBoolean()) {
-                // Créer un carré
-                FormeCarre forme = new FormeCarre(rand.nextInt(50,500), rand.nextInt(50,500),rand.nextInt(50,250));
-                originalShapes.add(forme);
-                gameView.getDrawingPanel().addShape("square" + i, forme.transform());
+                // Carré
+                int size = rand.nextInt(50, 250);
+                int x = rand.nextInt(50, 500);
+                int y = rand.nextInt(50, 500);
+                shape = new java.awt.geom.Rectangle2D.Double(x, y, size, size);
+                gameView.getDrawingPanel().addShape("square" + i, shape);
             } else {
-                // Créer un cercle
-                FormeCercle forme = new FormeCercle(rand.nextInt(500), rand.nextInt(500), 50);
-                originalShapes.add(forme);
-                gameView.getDrawingPanel().addShape("circle" + i, forme.transform());
+                // Cercle
+                int radius = rand.nextInt(25, 125);
+                int x = rand.nextInt(50, 500);
+                int y = rand.nextInt(50, 500);
+                shape = new java.awt.geom.Ellipse2D.Double(x, y, radius * 2, radius * 2);
+                gameView.getDrawingPanel().addShape("circle" + i, shape);
             }
+
+            originalShapes.add(shape);
         }
+
         gameView.getDrawingPanel().repaint();
     }
 
-    // Fonction pour geler l'interface et empêcher les dessins pendant une durée donnée
     public void freezeDrawing(int seconds) {
-        // Geler l'interface pour une durée donnée en secondes
         gameView.getDrawingPanel().setEnabled(false);
         new Timer(seconds * 1000, e -> {
-            gameView.getDrawingPanel().setEnabled(true);  // Réactive la zone de dessin après la période de gel
+            gameView.getDrawingPanel().setEnabled(true);
             System.out.println("finito");
         }).start();
     }
 
-    // Comparaison entre la forme originale et la forme dessinée par le joueur
-    public double evaluateDrawing(Forme original, Forme drawn) {
-        // Logique d'évaluation à ajouter ici (calcul de la similarité entre les formes)
-        double score = 0.0;
-        if (original.equals(drawn)) {
-            score = 100.0;  // Forme parfaite
+    public double evaluateDrawing(Shape original, Shape drawn) {
+        ShapeEvaluator evaluator;
+        
+        if (original instanceof Rectangle2D && drawn instanceof Rectangle2D) {
+            evaluator = new ShapeEvaluatorSquare();  // Création de l'évaluateur pour les carrés
+        } else if (original instanceof Ellipse2D && drawn instanceof Ellipse2D) {
+            evaluator = new ShapeEvaluatorCircle();  // Création de l'évaluateur pour les cercles
         } else {
-            score = 50.0;  // Exemple de score (peut être amélioré)
+            return 0.0;  // Retourner 0 si les formes sont de types différents
         }
-        return score;
+
+        return evaluator.compareShapes(original, drawn);  // Appel à la méthode d'évaluation
     }
 
-    // Fonction pour afficher le score dans la vue après la comparaison
     public void showScore(double score) {
         gameView.updateScore(score);
+        JOptionPane.showMessageDialog(gameView, "Votre score : " + (int) score + " / 100", "Résultat", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public ArrayList<Shape> getOriginalShapes() {
+        return originalShapes;
     }
 }
-

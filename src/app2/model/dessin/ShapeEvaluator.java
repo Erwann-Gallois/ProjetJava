@@ -1,8 +1,7 @@
 package app2.model.dessin;
 
-
-import app2.model.formes.Forme;
+import java.awt.Shape;
 
 public interface ShapeEvaluator {
-    double compareShapes(Forme original, Forme drawn);
+    double compareShapes(Shape original, Shape drawn);
 }

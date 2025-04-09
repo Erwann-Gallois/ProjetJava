@@ -1,10 +1,7 @@
-
 package app2.view;
 
 import javax.swing.*;
-
 import app2.model.dessin.ShapeDrawer;
-import app2.model.formes.Forme;
 import app2.model.dessin.factory.*;
 
 import java.awt.event.ActionEvent;
@@ -13,6 +10,7 @@ import java.util.ArrayList;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Shape; // Importation de Shape
 
 public class ShapeButtonPanel extends JPanel implements ActionListener {
     private JButton rectangleButton;
@@ -23,18 +21,20 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     private int nbreCircle = 0;
     private String currentShape = "rectangle";
     private JLabel shapeLabel;
-    private ArrayList<Forme> formesdessine = new ArrayList<>();
+    private ArrayList<Shape> shapesDrawn = new ArrayList<>(); // Utilisation de Shape
     private ShapeDrawer shapeDrawer;
     private boolean interactive = true;
-    public FormeFactory shapeFactory;
+    public FormeFactory shapeFactory;  // Factory qui crée des formes de type Shape
     private DrawingPanel drawingPanel;
 
     public ShapeButtonPanel(ShapeDrawer shapeDrawer2) {
         this.shapeDrawer = shapeDrawer2;
         setLayout(new FlowLayout());
+        
         generateShapesButton = new JButton("Generer des formes");
         generateShapesButton.addActionListener(e -> shapeDrawer.displayRandomShapes());
         add(generateShapesButton);
+        
         rectangleButton = new JButton("Rectangle");
         circleButton = new JButton("Circle");
         termineButton = new JButton("Termine");
@@ -54,20 +54,33 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == rectangleButton) {
             nbreRectangle++;
-            drawingPanel.setFactory(new RectangleFactory());
+            drawingPanel.setFactory(new RectangleFactory());  // Factory pour créer des rectangles
             shapeFactory = new RectangleFactory();
             currentShape = "rectangle";
             shapeLabel.setText("Selected Shape: Rectangle");
         } else if (e.getSource() == circleButton) {
-            nbreRectangle++;
-            drawingPanel.setFactory(new CircleFactory()); 
+            nbreCircle++; // Incrémentation du compteur de cercles
+            drawingPanel.setFactory(new CircleFactory()); // Factory pour créer des cercles
             shapeFactory = new CircleFactory();
             currentShape = "circle";
             shapeLabel.setText("Selected Shape: Circle");
         } else if (e.getSource() == termineButton) {
-            // Implement logic to finalize drawings
+            // Implémentation de la logique pour finaliser les dessins
+            finalizeDrawings();
         }
     }
+
+    private void finalizeDrawings() {
+        // Logique pour finaliser les dessins : évaluer la performance, etc.
+        setInteractive(false);  // Geler l'interface
+
+        // Pour l'instant, juste un message de fin
+        JOptionPane.showMessageDialog(this, "Les dessins sont terminés !");
+
+        // Par exemple, appeler shapeDrawer pour évaluer les dessins
+        // shapeDrawer.evaluateDrawings(); -> Mettre à jour avec logique d'évaluation des shapes
+    }
+
     public String getCurrentShape() {
         return currentShape;
     }
@@ -94,10 +107,9 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
             }
         }
     }
-    
 
-    public ArrayList<Forme> getFormesDessine() {
-        return formesdessine;
+    public ArrayList<Shape> getShapesDrawn() {  // Liste des formes dessinées sous forme de Shape
+        return shapesDrawn;
     }
 
     public void setRandomShapeButtonEnabled(boolean b) {
@@ -107,5 +119,4 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     public FormeFactory getFactory() {
         return shapeFactory;
     }
-
 }

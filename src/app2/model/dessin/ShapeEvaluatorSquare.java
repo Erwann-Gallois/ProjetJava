@@ -1,20 +1,24 @@
 package app2.model.dessin;
 
+import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
-import app2.model.formes.Forme;
 
 public class ShapeEvaluatorSquare implements ShapeEvaluator {
-    public double compareShapes(Forme original, Forme drawn) {
-        Rectangle2D originalBounds = new Rectangle2D.Double(original.getMidX() - original.getWidth() / 2, 
-                                                             original.getMidY() - original.getHeight() / 2, 
-                                                             original.getHeight(), original.getWidth());
-        Rectangle2D drawnBounds = new Rectangle2D.Double(drawn.getMidX() - drawn.getWidth() / 2, 
-                                                        drawn.getMidY() - drawn.getHeight() / 2, 
-                                                        drawn.getHeight(), drawn.getWidth());
+    @Override
+    public double compareShapes(Shape original, Shape drawn) {
+        if (!(original instanceof Rectangle2D) || !(drawn instanceof Rectangle2D)) {
+            return 0;  // Si les deux formes ne sont pas des carrés, on retourne un score nul
+        }
 
-        return 100 - Math.abs(originalBounds.getX() - drawnBounds.getX()) 
-                    - Math.abs(originalBounds.getY() - drawnBounds.getY()) 
-                    - Math.abs(originalBounds.getWidth() - drawnBounds.getWidth()) 
-                    - Math.abs(originalBounds.getHeight() - drawnBounds.getHeight());
+        Rectangle2D originalBounds = (Rectangle2D) original;
+        Rectangle2D drawnBounds = (Rectangle2D) drawn;
+
+        // Calcul de la différence entre les deux carrés (position, taille)
+        double score = 100 - Math.abs(originalBounds.getX() - drawnBounds.getX())
+                            - Math.abs(originalBounds.getY() - drawnBounds.getY())
+                            - Math.abs(originalBounds.getWidth() - drawnBounds.getWidth())
+                            - Math.abs(originalBounds.getHeight() - drawnBounds.getHeight());
+
+        return score < 0 ? 0 : score; // Limite le score à 0 minimum
     }
 }
