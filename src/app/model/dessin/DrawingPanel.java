@@ -32,6 +32,8 @@ public class DrawingPanel extends JPanel implements ShapeProvider {
                     shapes.put("rectangle" + shapeButtonPanel.getNbreRectangle(), shape);
                 } else if (shapeButtonPanel.getCurrentShape().equals("circle")) {
                     shapes.put("circle" + shapeButtonPanel.getNbreCircle(), shape);
+                } else if (shapeButtonPanel.getCurrentShape().equals("triangle")){
+                    shapes.put("triangle" + shapeButtonPanel.getNbreTriangle(), shape);
                 }
             }
 
@@ -61,6 +63,12 @@ public class DrawingPanel extends JPanel implements ShapeProvider {
             int height = Math.abs(y1 - y2);
             int diameter = Math.max(width, height);
             return new Ellipse2D.Double(x, y, diameter, diameter);
+        } else if (shapeButtonPanel.getCurrentShape().equals("triangle")) {
+            int sideLength = Math.abs(x2 - x1);
+            int height = (int) (Math.sqrt(3) / 2 * sideLength);
+            int[] xPoints = {x1, x1 + sideLength / 2, x1 - sideLength / 2};
+            int[] yPoints = {y1 - height / 2, y1 + height, y1 + height};
+            return new Polygon(xPoints, yPoints, 3);
         }
         return null;
     }
