@@ -14,7 +14,7 @@ public class GameView extends JFrame {
     private ShapeDrawer shapeDrawer;
     private boolean randomShapesMode = false;
 
-    public GameView() {
+    public GameView(boolean randomShapesMode) {
         setTitle("Dessin de formes");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -23,6 +23,7 @@ public class GameView extends JFrame {
         shapeDrawer = new ShapeDrawer(this);
         shapeButtonPanel = new ShapeButtonPanel(shapeDrawer);
         drawingPanel = new DrawingPanel(shapeButtonPanel);
+        shapeButtonPanel.setDrawingPanel(drawingPanel);
         replayButton = new JButton("Rejouer");
         scoreLabel = new JLabel("Score : 0");
 
@@ -37,6 +38,7 @@ public class GameView extends JFrame {
         add(topPanel, BorderLayout.NORTH);
         add(drawingPanel, BorderLayout.CENTER);
         add(scoreLabel, BorderLayout.SOUTH);
+        setRandomShapesMode(randomShapesMode);
     }
 
     public void updateScore(double score) {
@@ -47,11 +49,37 @@ public class GameView extends JFrame {
         replayButton.setEnabled(true);
     }
 
+    private void startRandomPhase() {
+        Timer generateShapes = new Timer(500, e -> {
+            shapeDrawer.displayRandomShapes(); // Dessine formes IA
+    
+            // Timer unique pour nettoyer après 10 secondes
+            Timer cleanup = new Timer(10_000, e2 -> {
+                drawingPanel.clearShapes();             // Nettoyage
+                drawingPanel.setInteractive(true);      // Activer dessin
+                shapeButtonPanel.setInteractive(true);  // Activer boutons
+            });
+            cleanup.setRepeats(false);
+            cleanup.start();
+        });
+        generateShapes.setRepeats(false);
+        generateShapes.start();
+    }
+
     public void restartGame() {
-        // Logic to restart the game
-        shapeButtonPanel = new ShapeButtonPanel(shapeDrawer);
-        drawingPanel.repaint();
+        drawingPanel.clearShapes();                  // Nettoie l’interface
+        drawingPanel.setInteractive(false);          // Désactive dessin
+        shapeButtonPanel.setInteractive(false);      // Désactive boutons
         scoreLabel.setText("Score : 0");
+        replayButton.setEnabled(false);
+    
+        if (randomShapesMode) {
+            startRandomPhase(); // Lance la logique de "joueur vs aléatoire"
+        } else {
+            // Mode classique : activer dessin direct
+            drawingPanel.setInteractive(true);
+            shapeButtonPanel.setInteractive(true);
+        }
     }
 
     public DrawingPanel getDrawingPanel() {
@@ -60,12 +88,5 @@ public class GameView extends JFrame {
 
     public void setRandomShapesMode(boolean mode) {
         this.randomShapesMode = mode;
-        if (randomShapesMode) {
-            // Désactiver le bouton de dessin de formes aléatoires
-            shapeButtonPanel.setRandomShapeButtonEnabled(false);
-            shapeDrawer.displayRandomShapes();
-        } else {
-            shapeButtonPanel.setRandomShapeButtonEnabled(true);
-        }
     }
 }

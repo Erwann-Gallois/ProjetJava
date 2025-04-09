@@ -6,7 +6,8 @@ import app2.model.dessin.ShapeDrawer;
 
 public class Main {
     public static void main(String[] args) {
-        GameView gameView = new GameView();
+        GameView gameView = new GameView(true);
+        gameView.restartGame();
         MenuView menuView = new MenuView(gameView);
         menuView.setVisible(true);
     }

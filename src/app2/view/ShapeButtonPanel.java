@@ -5,11 +5,13 @@ import javax.swing.*;
 
 import app2.model.dessin.ShapeDrawer;
 import app2.model.formes.Forme;
+import app2.model.dessin.factory.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 
 public class ShapeButtonPanel extends JPanel implements ActionListener {
@@ -23,6 +25,9 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     private JLabel shapeLabel;
     private ArrayList<Forme> formesdessine = new ArrayList<>();
     private ShapeDrawer shapeDrawer;
+    private boolean interactive = true;
+    public FormeFactory shapeFactory;
+    private DrawingPanel drawingPanel;
 
     public ShapeButtonPanel(ShapeDrawer shapeDrawer2) {
         this.shapeDrawer = shapeDrawer2;
@@ -49,18 +54,20 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == rectangleButton) {
             nbreRectangle++;
+            drawingPanel.setFactory(new RectangleFactory());
+            shapeFactory = new RectangleFactory();
             currentShape = "rectangle";
             shapeLabel.setText("Selected Shape: Rectangle");
         } else if (e.getSource() == circleButton) {
-            nbreCircle++;
+            nbreRectangle++;
+            drawingPanel.setFactory(new CircleFactory()); 
+            shapeFactory = new CircleFactory();
             currentShape = "circle";
             shapeLabel.setText("Selected Shape: Circle");
         } else if (e.getSource() == termineButton) {
-            // Print all drawn shapes
-            System.out.println("boop");
+            // Implement logic to finalize drawings
         }
     }
-
     public String getCurrentShape() {
         return currentShape;
     }
@@ -73,12 +80,32 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
         return nbreCircle;
     }
 
+    public void setDrawingPanel(DrawingPanel panel){
+        drawingPanel = panel;
+    }
+
+    public void setInteractive(boolean interactive) {
+        this.interactive = interactive;
+    
+        // Désactive tous les boutons
+        for (Component comp : this.getComponents()) {
+            if (comp instanceof JButton) {
+                comp.setEnabled(interactive);
+            }
+        }
+    }
+    
+
     public ArrayList<Forme> getFormesDessine() {
         return formesdessine;
     }
 
     public void setRandomShapeButtonEnabled(boolean b) {
         generateShapesButton.setEnabled(b);
+    }
+
+    public FormeFactory getFactory() {
+        return shapeFactory;
     }
 
 }

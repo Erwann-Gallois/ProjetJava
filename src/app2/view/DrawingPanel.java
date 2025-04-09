@@ -6,6 +6,8 @@ import java.awt.geom.Ellipse2D;
 import java.util.HashMap;
 import javax.swing.*;
 
+import app3.factory.FormeFactory;
+
 
 public class DrawingPanel extends JPanel {
     private Point startPoint;
@@ -13,6 +15,8 @@ public class DrawingPanel extends JPanel {
     private HashMap<String, Shape> shapes = new HashMap<>();
     private ShapeButtonPanel shapeButtonPanel;
     private boolean randomShapesMode = false;
+    private boolean interactive = true;
+    private FormeFactory shapeFactory;
     
     public DrawingPanel(ShapeButtonPanel shapeButtonPanel) {
         setPreferredSize(new Dimension(800, 600));
@@ -21,11 +25,13 @@ public class DrawingPanel extends JPanel {
         MouseAdapter mouseHandler = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                if (!interactive) return;
                 startPoint = e.getPoint();
             }
-
+        
             @Override
             public void mouseReleased(MouseEvent e) {
+                if (!interactive) return;
                 endPoint = e.getPoint();
                 Shape shape = createShape(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
                 if (shapeButtonPanel.getCurrentShape().equals("rectangle")) {
@@ -35,9 +41,10 @@ public class DrawingPanel extends JPanel {
                 }
                 repaint();
             }
-
+        
             @Override
             public void mouseDragged(MouseEvent e) {
+                if (!interactive) return;
                 endPoint = e.getPoint();
                 repaint();
             }
@@ -56,9 +63,18 @@ public class DrawingPanel extends JPanel {
         repaint();
     }
 
+    public void setFactory(FormeFactory shapeFactory) {
+        this.shapeFactory = shapeFactory;
+    }
+
     public HashMap<String, Shape> getShapes() {
         return shapes;
     }
+
+    public void setInteractive(boolean interactive) {
+        this.interactive = interactive;
+    }
+    
 
     @Override
     protected void paintComponent(Graphics g) {
