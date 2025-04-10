@@ -24,6 +24,7 @@ public class DrawingPanel extends JPanel {
         setPreferredSize(new Dimension(800, 600));
         setBackground(Color.WHITE);
         this.shapeButtonPanel = shapeButtonPanel;
+        this.shapeFactory = shapeButtonPanel.getFactory();
         MouseAdapter mouseHandler = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
