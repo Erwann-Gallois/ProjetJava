@@ -11,6 +11,8 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     private JButton rectangleButton;
     private JButton circleButton;
     private JButton termineButton;
+    private JButton undoButton;
+    private JButton redoButton;
     private int nbreRectangle = 0;
     private int nbreCircle = 0;
     private String currentShape = "rectangle";
@@ -26,7 +28,11 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
         circleButton = new JButton("Circle");
         termineButton = new JButton("Termine");
         shapeLabel = new JLabel("Selected Shape: Rectangle");
+        this.undoButton = new JButton("undo");
+        this.redoButton = new JButton("redo");
 
+        undoButton.addActionListener(e -> drawingPanel.undo());
+        redoButton.addActionListener(e -> drawingPanel.redo());
         rectangleButton.addActionListener(this);
         circleButton.addActionListener(this);
         termineButton.addActionListener(this);
@@ -36,6 +42,8 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
         add(circleButton);
         add(shapeLabel);
         add(termineButton);
+        add(this.undoButton);
+        add(this.redoButton);
     }
 
     @Override

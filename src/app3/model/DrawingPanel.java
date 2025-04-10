@@ -1,12 +1,13 @@
 package app3.model;
 
+import app3.command.CommandHandler;
+import app3.command.DrawShapeCommand;
+import app3.factory.FormeFactory;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.*;
-
-import app3.factory.FormeFactory;
 
 public class DrawingPanel extends JPanel implements ShapeProvider {
     private Point startPoint;
@@ -14,6 +15,7 @@ public class DrawingPanel extends JPanel implements ShapeProvider {
     private Map<String, Shape> shapes = new HashMap<>();
     private ShapeButtonPanel shapeButtonPanel;
     private FormeFactory shapeFactory; 
+    private CommandHandler commandHandler = new CommandHandler();
 
     public DrawingPanel(FormeFactory shape) {
         this.shapeFactory = shape;
@@ -35,8 +37,11 @@ public class DrawingPanel extends JPanel implements ShapeProvider {
 
                     Shape newShape = shapeFactory.createForme(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
                     String shapeName = shapeButtonPanel.getCurrentShape();
+                    String key = shapeName + shapeButtonPanel.getNbreRectangle();
                     shapes.put(shapeName + shapeButtonPanel.getNbreRectangle(), newShape);
                     System.out.println(shapes);
+                    DrawShapeCommand command = new DrawShapeCommand(shapes, key, newShape);
+                    commandHandler.handle(command);
                     repaint();
                 }
             }
@@ -85,5 +90,15 @@ public class DrawingPanel extends JPanel implements ShapeProvider {
 
     public void setFactory(FormeFactory shapeFactory) {
         this.shapeFactory = shapeFactory;
+    }
+
+    public void undo() {
+        commandHandler.undo();
+        repaint();
+    }
+    
+    public void redo() {
+        commandHandler.redo();
+        repaint();
     }
 }
