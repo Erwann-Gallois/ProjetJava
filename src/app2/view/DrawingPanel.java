@@ -94,6 +94,17 @@ public class DrawingPanel extends JPanel {
     }
     
 
+    public void undo() {
+        commandHandler.undo();
+        repaint();
+    }
+    
+    public void redo() {
+        commandHandler.redo();
+        repaint();
+    }
+    
+
     @Override
     protected void paintComponent(Graphics g) {
         // super.paintComponent(g);
