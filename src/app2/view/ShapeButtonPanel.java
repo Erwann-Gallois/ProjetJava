@@ -1,16 +1,15 @@
 package app2.view;
 
-import javax.swing.*;
 import app2.model.dessin.ShapeDrawer;
 import app2.model.dessin.factory.*;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.Shape; // Importation de Shape
+import java.awt.Shape;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.*; // Importation de Shape
 
 public class ShapeButtonPanel extends JPanel implements ActionListener {
     private JButton rectangleButton;
@@ -28,6 +27,9 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     private DrawingPanel drawingPanel;
 
     public ShapeButtonPanel(ShapeDrawer shapeDrawer2) {
+
+        this.shapeFactory =  new RectangleFactory();
+        
         this.shapeDrawer = shapeDrawer2;
         setLayout(new FlowLayout());
         
