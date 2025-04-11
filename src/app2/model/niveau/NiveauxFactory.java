@@ -4,8 +4,10 @@ import app2.model.formes.FormeCercle;
 import app2.model.formes.FormeCarre;
 import app2.model.formes.FormeTriangle;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -42,6 +44,14 @@ public class NiveauxFactory {
             oos.writeObject(niveaux);
         }
     }
+
+    @SuppressWarnings("unchecked")
+    public static Map<String, Niveau> charger(String fichier) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier))) {
+            return (Map<String, Niveau>) ois.readObject();
+        }
+    }
+
 
     public static void main(String[] args) {
         try {

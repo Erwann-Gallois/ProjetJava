@@ -1,24 +1,50 @@
 package app2.model.dessin;
 
+import app2.model.formes.AbstractForme;
+import app2.model.formes.FormeCarre;
+import app2.model.formes.FormeCercle;
+import app2.model.formes.FormeTriangle;
+import app2.model.niveau.Niveau;
+import app2.model.niveau.NiveauxFactory;
 import app2.view.GameView;
 
 import javax.swing.*;
+
+import java.awt.Polygon;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * Classe responsable de l'affichage des formes dans le panneau de dessin.
+ * <p>
+ * Elle permet d'afficher soit des formes aléatoires, soit des niveaux prédéfinis,
+ * de figer le dessin temporairement, d'évaluer la précision du dessin utilisateur,
+ * et d'afficher le score.
+ */
 public class ShapeDrawer extends JFrame {
     private GameView gameView;
     private ArrayList<Shape> originalShapes;
 
+    /**
+     * Constructeur.
+     *
+     * @param gameView la vue principale du jeu associée à ce contrôleur
+     */
     public ShapeDrawer(GameView gameView) {
         this.gameView = gameView;
         originalShapes = new ArrayList<>();
     }
 
+    /**
+     * Affiche un nombre aléatoire de cercles ou carrés sur le panneau de dessin.
+     * Les formes générées sont stockées pour l'évaluation ultérieure.
+     */
     public void displayRandomShapes() {
         gameView.getDrawingPanel().getShapes().clear();
         originalShapes.clear();
@@ -48,6 +74,39 @@ public class ShapeDrawer extends JFrame {
 
         gameView.getDrawingPanel().repaint();
     }
+    
+    public void displayLevelShapes(Niveau niveau) {
+        gameView.getDrawingPanel().getShapes().clear();
+        originalShapes.clear();
+        for (AbstractForme f : niveau.getFormes()) {
+            Shape shape = null;
+
+            if (f instanceof FormeCercle) {
+                shape = new Ellipse2D.Double(f.getX(), f.getY(), f.getW(), f.getH());
+            } else if (f instanceof FormeCarre) {
+                shape = new Rectangle2D.Double(f.getX(), f.getY(), f.getW(), f.getH());
+            } else if (f instanceof FormeTriangle) {
+                int[] xPoints = {
+                    f.getX() + f.getW() / 2,
+                    f.getX(),
+                    f.getX() + f.getW()
+                };
+                int[] yPoints = {
+                    f.getY(),
+                    f.getY() + f.getH(),
+                    f.getY() + f.getH()
+                };
+                shape = new Polygon(xPoints, yPoints, 3);
+            }
+
+            if (shape != null) {
+                gameView.getDrawingPanel().addShape(f.getNom(), shape);
+                originalShapes.add(shape);
+            }
+        }
+        gameView.getDrawingPanel().repaint();
+    }
+
 
     public void freezeDrawing(int seconds) {
         gameView.getDrawingPanel().setEnabled(false);
@@ -64,7 +123,10 @@ public class ShapeDrawer extends JFrame {
             evaluator = new ShapeEvaluatorSquare();  // Création de l'évaluateur pour les carrés
         } else if (original instanceof Ellipse2D && drawn instanceof Ellipse2D) {
             evaluator = new ShapeEvaluatorCircle();  // Création de l'évaluateur pour les cercles
-        } else {
+        } else if (original instanceof Polygon && drawn instanceof Polygon) {
+            evaluator = new ShapeEvaluatorTriangle();  // Création de l'évaluateur pour les triangles
+        } 
+        else {
             return 0.0;  // Retourner 0 si les formes sont de types différents
         }
 

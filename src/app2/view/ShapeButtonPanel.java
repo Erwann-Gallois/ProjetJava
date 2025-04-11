@@ -14,12 +14,14 @@ import javax.swing.*; // Importation de Shape
 public class ShapeButtonPanel extends JPanel implements ActionListener {
     private JButton rectangleButton;
     private JButton circleButton;
+    private JButton triangleButton;
     private JButton termineButton;
     private JButton generateShapesButton;
     private JButton undoButton;
     private JButton redoButton;
     private int nbreRectangle = 0;
     private int nbreCircle = 0;
+    private int nbreTriangle = 0;
     private String currentShape = "rectangle";
     private JLabel shapeLabel;
     private ArrayList<Shape> shapesDrawn = new ArrayList<>(); // Utilisation de Shape
@@ -28,6 +30,10 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     public FormeFactory shapeFactory;  // Factory qui crée des formes de type Shape
     private DrawingPanel drawingPanel;
 
+    /**
+     * Constructeur de la classe ShapeButtonPanel.
+     * @param shapeDrawer2 Objet ShapeDrawer pour dessiner les formes
+     */
     public ShapeButtonPanel(ShapeDrawer shapeDrawer2) {
 
         this.shapeFactory =  new RectangleFactory();
@@ -40,7 +46,8 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
         add(generateShapesButton);
         
         rectangleButton = new JButton("Rectangle");
-        circleButton = new JButton("Circle");
+        circleButton = new JButton("Cercle");
+        triangleButton = new JButton("Triangle");
         termineButton = new JButton("Termine");
         shapeLabel = new JLabel("Selected Shape: Rectangle");
 
@@ -51,10 +58,12 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
 
         rectangleButton.addActionListener(this);
         circleButton.addActionListener(this);
+        triangleButton.addActionListener(this);
         termineButton.addActionListener(this);
 
         add(rectangleButton, BorderLayout.WEST);
         add(circleButton, BorderLayout.CENTER);
+        add(triangleButton, BorderLayout.CENTER);
         add(shapeLabel, BorderLayout.CENTER);
         add(termineButton, BorderLayout.EAST);
 
@@ -62,6 +71,10 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
         add(this.redoButton);
     }
 
+    /**
+     * Méthode actionPerformed pour gérer les événements des boutons.
+     * @param e Événement ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == rectangleButton) {
@@ -76,12 +89,22 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
             shapeFactory = new CircleFactory();
             currentShape = "circle";
             shapeLabel.setText("Selected Shape: Circle");
+        } else if (e.getSource() == triangleButton) {
+            nbreTriangle++; // Incrémentation du compteur de triangles
+            drawingPanel.setFactory(new TriangleFactory()); // Factory pour créer des triangles
+            shapeFactory = new TriangleFactory();
+            currentShape = "triangle";
+            shapeLabel.setText("Selected Shape: Triangle");
+
         } else if (e.getSource() == termineButton) {
             // Implémentation de la logique pour finaliser les dessins
             finalizeDrawings();
         }
     }
 
+    /**
+     * Méthode pour finaliser les dessins.
+     */
     private void finalizeDrawings() {
         // Logique pour finaliser les dessins : évaluer la performance, etc.
         setInteractive(false);  // Geler l'interface
@@ -94,6 +117,7 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
         // Par exemple, appeler shapeDrawer pour évaluer les dessins
     }
 
+    
     public String getCurrentShape() {
         return currentShape;
     }
@@ -104,6 +128,11 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
 
     public int getNbreCircle() {
         return nbreCircle;
+    }
+
+    public int getNbreTriangle()
+    {
+        return nbreTriangle;
     }
 
     public void setDrawingPanel(DrawingPanel panel){

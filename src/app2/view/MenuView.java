@@ -27,7 +27,9 @@ public class MenuView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // On ajoutera la logique pour "Joueur contre IA" plus tard
-                System.out.println("Joueur contre IA");
+                setVisible(false);
+                gameView.setVisible(true);
+                gameView.getDrawingPanel().setRandomShapesMode(false);  // Passer en mode IA
             }
         });
 
