@@ -2,7 +2,7 @@ package app2.model.dessin.factory;
 
 import util.AbstractModeleEcoutable;
 
-public abstract class AbstractForme extends AbstractModeleEcoutable implements FormeFactory {
+public abstract class AbstractFormeFactory extends AbstractModeleEcoutable implements FormeFactory{
 
     private String pieceName;
     private Integer X;
@@ -10,7 +10,7 @@ public abstract class AbstractForme extends AbstractModeleEcoutable implements F
     private Integer w;
     private Integer h;
 
-    public AbstractForme(String type) {
+    public AbstractFormeFactory(String type) {
         this.pieceName = type;
         this.X = null;
         this.Y = null;

@@ -3,10 +3,12 @@ package app2.model.evaluation;
 import app2.model.dessin.ShapeEvaluator;
 import app2.model.dessin.ShapeEvaluatorCircle;
 import app2.model.dessin.ShapeEvaluatorSquare;
+import app2.model.dessin.ShapeEvaluatorTriangle;
 import app2.model.dessin.factory.AbstractForme;
 import app2.model.dessin.factory.CircleFactory;
 import app2.model.dessin.factory.FormeFactory;
 import app2.model.dessin.factory.RectangleFactory;
+import app2.model.dessin.factory.TriangleFactory;
 
 import java.awt.Shape;
 import java.util.List;
@@ -16,6 +18,7 @@ public class ShapeEvaluationStrategyImpl {
 
     private final ShapeEvaluator squareEvaluator = new ShapeEvaluatorSquare();
     private final ShapeEvaluator circleEvaluator = new ShapeEvaluatorCircle();
+    private final ShapeEvaluator triangleEvaluator = new ShapeEvaluatorTriangle();
 
     // Méthode d'évaluation qui compare les formes dessinées avec les formes de référence
     public double evaluate(Map<String, Shape> userShapes, List<AbstractForme> referenceForms) {
@@ -41,6 +44,8 @@ public class ShapeEvaluationStrategyImpl {
                 score = squareEvaluator.compareShapes(reference.createForme(0, 0, 0, 0), drawn);  // Comparaison carrée
             } else if (reference instanceof CircleFactory) {
                 score = circleEvaluator.compareShapes(reference.createForme(0, 0, 0, 0), drawn);  // Comparaison circulaire
+            } else if (reference instanceof TriangleFactory) {
+                score = triangleEvaluator.compareShapes(reference.createForme(0, 0, 0, 0), drawn); // Comparaison triangulaire
             }
 
             // Accumuler le score en s'assurant qu'il reste entre 0 et 100

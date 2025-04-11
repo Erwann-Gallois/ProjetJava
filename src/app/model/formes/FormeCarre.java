@@ -1,6 +1,8 @@
 package app.model.formes;
 
-public class FormeCarre extends AbstractForme{
+import java.io.Serializable;
+
+public class FormeCarre extends AbstractForme implements Serializable{
 
     /**
      * Constructeur de la forme carré et rectangle.

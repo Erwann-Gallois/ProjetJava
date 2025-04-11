@@ -1,6 +1,8 @@
 package app.model.formes;
 
-public class FormeCercle extends AbstractForme {
+import java.io.Serializable;
+
+public class FormeCercle extends AbstractForme implements Serializable{
 
     /**
      * Constructeur de la forme cercle.

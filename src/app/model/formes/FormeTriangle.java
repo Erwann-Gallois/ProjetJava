@@ -1,6 +1,8 @@
 package app.model.formes;
 
-public class FormeTriangle extends AbstractForme{
+import java.io.Serializable;
+
+public class FormeTriangle extends AbstractForme implements Serializable{
     /**
      * Constructeur de la forme Triangle
      * @param width hauteur
