@@ -18,7 +18,7 @@ public class MenuView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(4, 1));
 
-        joueurVsIAButton = new JButton("Joueur contre IA");
+        joueurVsIAButton = new JButton("Par niveaux");
         joueurVsAleatoireButton = new JButton("Joueur contre Aléatoire");
         joueurVsJoueurButton = new JButton("Joueur contre Joueur");
 
