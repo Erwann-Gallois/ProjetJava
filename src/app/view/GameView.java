@@ -1,13 +1,12 @@
 package app.view;
 
-import javax.swing.*;
 import app.model.dessin.ShapeDrawer;
 import app.model.niveau.Niveau;
 import app.model.niveau.NiveauxFactory;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Map;
+import javax.swing.*;
 
 public class GameView extends JFrame {
     private DrawingPanel drawingPanel;
@@ -30,7 +29,7 @@ public class GameView extends JFrame {
         replayButton = new JButton("Rejouer");
         scoreLabel = new JLabel("Score : 0");
 
-        replayButton.setEnabled(false);
+        // replayButton.setEnabled(false);
         replayButton.addActionListener(e -> restartGame());
 
         JPanel topPanel = new JPanel();
@@ -104,7 +103,7 @@ public class GameView extends JFrame {
         drawingPanel.setInteractive(false);          // Désactive dessin
         shapeButtonPanel.setInteractive(false);      // Désactive boutons
         scoreLabel.setText("Score : 0");
-        replayButton.setEnabled(false);
+        // replayButton.setEnabled(false);
     
         if (randomShapesMode) {
             startRandomPhase(); // Lance la logique de "joueur vs aléatoire"
