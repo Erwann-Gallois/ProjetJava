@@ -6,9 +6,6 @@ import java.awt.geom.Rectangle2D;
 public class ShapeEvaluatorSquare implements ShapeEvaluator {
     @Override
     public double compareShapes(Shape original, Shape drawn) {
-        if (!(original instanceof Rectangle2D) || !(drawn instanceof Rectangle2D)) {
-            return 0;  // Si les deux formes ne sont pas des carrés, on retourne un score nul
-        }
 
         Rectangle2D originalBounds = (Rectangle2D) original;
         Rectangle2D drawnBounds = (Rectangle2D) drawn;

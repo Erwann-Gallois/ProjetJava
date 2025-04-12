@@ -110,12 +110,10 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
         // Logique pour finaliser les dessins : évaluer la performance, etc.
         setInteractive(false);  // Geler l'interface
 
-        Double res = shapeDrawer.evaluateDrawing(getVisibleRect(), getBounds()); // -> Mettre à jour avec logique d'évaluation des shapes
-
+        Double res = shapeDrawer.evaluateDrawing(shapeDrawer.getOriginalShapes(), getShapesDrawn());
+        
         // Pour l'instant, juste un message de fin
         JOptionPane.showMessageDialog(this, "Les dessins sont terminés, vous avez obtenue un score de "+res);
-
-        // Par exemple, appeler shapeDrawer pour évaluer les dessins
     }
 
     

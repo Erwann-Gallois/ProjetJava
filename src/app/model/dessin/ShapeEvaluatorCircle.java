@@ -6,10 +6,6 @@ import java.awt.geom.Ellipse2D;
 public class ShapeEvaluatorCircle implements ShapeEvaluator {
     @Override
     public double compareShapes(Shape original, Shape drawn) {
-        if (!(original instanceof Ellipse2D) || !(drawn instanceof Ellipse2D)) {
-            return 0;  // Si les deux formes ne sont pas des cercles, on retourne un score nul
-        }
-
         Ellipse2D originalBounds = (Ellipse2D) original;
         Ellipse2D drawnBounds = (Ellipse2D) drawn;
 

@@ -7,9 +7,6 @@ public class ShapeEvaluatorTriangle implements ShapeEvaluator {
 
     @Override
     public double compareShapes(Shape original, Shape drawn) {
-        if (!(original instanceof Polygon) || !(drawn instanceof Polygon)) {
-            return 0;
-        }
 
         Polygon polyOriginal = (Polygon) original;
         Polygon polyDrawn = (Polygon) drawn;

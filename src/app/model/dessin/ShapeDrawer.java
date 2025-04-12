@@ -2,9 +2,15 @@ package app.model.dessin;
 
 import javax.swing.*;
 
+import app.model.evaluation.ShapeEvaluationStrategyImpl;
+import app.model.formes.AbstractForme;
+import app.model.formes.FormeCarre;
+import app.model.formes.FormeCercle;
+import app.model.formes.FormeTriangle;
 import app.model.niveau.Niveau;
 import app.view.GameView;
 
+import java.awt.Polygon;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
@@ -91,18 +97,8 @@ public class ShapeDrawer extends JFrame {
         }).start();
     }
 
-    public double evaluateDrawing(Shape original, Shape drawn) {
-        ShapeEvaluator evaluator;
-        
-        if (original instanceof Rectangle2D && drawn instanceof Rectangle2D) {
-            evaluator = new ShapeEvaluatorSquare();  // Création de l'évaluateur pour les carrés
-        } else if (original instanceof Ellipse2D && drawn instanceof Ellipse2D) {
-            evaluator = new ShapeEvaluatorCircle();  // Création de l'évaluateur pour les cercles
-        } else {
-            return 0.0;  // Retourner 0 si les formes sont de types différents
-        }
-
-        return evaluator.compareShapes(original, drawn);  // Appel à la méthode d'évaluation
+    public double evaluateDrawing(ArrayList<Shape> originals, ArrayList<Shape> drawns) {
+        return new ShapeEvaluationStrategyImpl().evaluate(drawns, originals);
     }
 
     public void showScore(double score) {

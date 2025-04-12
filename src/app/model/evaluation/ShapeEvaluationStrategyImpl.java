@@ -1,6 +1,7 @@
 package app.model.evaluation;
 
 import java.awt.Shape;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,33 +22,29 @@ public class ShapeEvaluationStrategyImpl {
     private final ShapeEvaluator triangleEvaluator = new ShapeEvaluatorTriangle();
 
     // Méthode d'évaluation qui compare les formes dessinées avec les formes de référence
-    public double evaluate(Map<String, Shape> userShapes, List<AbstractFormeFactory> referenceForms) {
-        // Si le nombre de formes dessinées ne correspond pas au nombre de formes de référence, retour 0
-        if (userShapes.size() != referenceForms.size()) {
-            return 0.0;
-        }
-
+    public double evaluate(ArrayList<Shape> userShapes, ArrayList<Shape> referenceForms) {
         double total = 0.0;
-        int i = 0;
 
         // On parcourt les formes dessinées et de référence pour évaluer leur similarité
-        for (Map.Entry<String, Shape> entry : userShapes.entrySet()) {
-            AbstractFormeFactory reference = referenceForms.get(i);  // Forme de référence
-            Shape drawn = entry.getValue();  // Forme dessinée par l'utilisateur
-            i++;
+        for (Shape reference : userShapes) {
 
             // Initialisation du score de la comparaison
             double score = 0.0;
 
-            // Évaluation selon le type de forme
-            if (reference instanceof RectangleFactory) {
-                score = squareEvaluator.compareShapes(reference.createForme(0, 0, 0, 0), drawn);  // Comparaison carrée
-            } else if (reference instanceof CircleFactory) {
-                score = circleEvaluator.compareShapes(reference.createForme(0, 0, 0, 0), drawn);  // Comparaison circulaire
-            } else if (reference instanceof TriangleFactory) {
-                score = triangleEvaluator.compareShapes(reference.createForme(0, 0, 0, 0), drawn); // Comparaison triangulaire
+            for (Shape drawn: referenceForms){
+                double tempo = 0.0;
+                // Évaluation selon le type de forme
+                if (reference instanceof RectangleFactory) {
+                    tempo = squareEvaluator.compareShapes(reference, drawn);  // Comparaison carrée
+                } else if (reference instanceof CircleFactory) {
+                    tempo = circleEvaluator.compareShapes(reference, drawn);  // Comparaison circulaire
+                } else if (reference instanceof TriangleFactory) {
+                    tempo = triangleEvaluator.compareShapes(reference, drawn); // Comparaison triangulaire
+                }
+                if(tempo > score){
+                    score = tempo;
+                }
             }
-
             // Accumuler le score en s'assurant qu'il reste entre 0 et 100
             total += Math.max(0, Math.min(score, 100)); 
         }
