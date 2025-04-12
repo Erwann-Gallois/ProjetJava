@@ -1,18 +1,24 @@
 package app.model.dessin;
 
-import java.awt.geom.Rectangle2D;
-import app.model.formes.*;
 import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
 
-public class ShapeEvaluatorSquare implements ShapeEvaluator{
-    public double compareShapes(Forme original, Forme drawn) {
-        // Comparaison basique des dimensions et positions des formes
-        Rectangle2D originalBounds = new Rectangle2D.Double(original.getMidX() - original.getWidth() / 2, original.getMidY() - original.getHeight() / 2, original.getHeight(), original.getWidth());
-        Rectangle2D drawnBounds = new Rectangle2D.Double(drawn.getMidX() - drawn.getWidth() / 2, drawn.getMidY() - drawn.getHeight() / 2, drawn.getHeight(), drawn.getWidth());
+public class ShapeEvaluatorSquare implements ShapeEvaluator {
+    @Override
+    public double compareShapes(Shape original, Shape drawn) {
+        if (!(original instanceof Rectangle2D) || !(drawn instanceof Rectangle2D)) {
+            return 0;  // Si les deux formes ne sont pas des carrés, on retourne un score nul
+        }
 
-        // Tolérance (par exemple, pour les petites erreurs de positionnement)
-        final double tolerance = 5.0;
+        Rectangle2D originalBounds = (Rectangle2D) original;
+        Rectangle2D drawnBounds = (Rectangle2D) drawn;
 
-        return 100 - Math.abs(originalBounds.getX() - drawnBounds.getX()) - Math.abs(originalBounds.getY() - drawnBounds.getY()) - Math.abs(originalBounds.getWidth() - drawnBounds.getWidth()) - Math.abs(originalBounds.getHeight() - drawnBounds.getHeight());
+        // Calcul de la différence entre les deux carrés (position, taille)
+        double score = 100 - Math.abs(originalBounds.getX() - drawnBounds.getX())
+                            - Math.abs(originalBounds.getY() - drawnBounds.getY())
+                            - Math.abs(originalBounds.getWidth() - drawnBounds.getWidth())
+                            - Math.abs(originalBounds.getHeight() - drawnBounds.getHeight());
+
+        return score < 0 ? 0 : score; // Limite le score à 0 minimum
     }
 }

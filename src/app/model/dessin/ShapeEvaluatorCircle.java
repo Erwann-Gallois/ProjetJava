@@ -1,19 +1,24 @@
 package app.model.dessin;
 
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
-import app.model.formes.*;
 import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 
-public class ShapeEvaluatorCircle implements ShapeEvaluator{
-    public double compareShapes(Forme original, Forme drawn) {
-        // Comparaison basique des dimensions et positions des formes
-        Ellipse2D originalBounds = new Ellipse2D.Double(original.getMidX() - original.getWidth() / 2, original.getMidY() - original.getHeight() / 2, original.getHeight(), original.getWidth());
-        Ellipse2D drawnBounds = new Ellipse2D.Double(drawn.getMidX() - drawn.getWidth() / 2, drawn.getMidY() - drawn.getHeight() / 2, drawn.getHeight(), drawn.getWidth());
+public class ShapeEvaluatorCircle implements ShapeEvaluator {
+    @Override
+    public double compareShapes(Shape original, Shape drawn) {
+        if (!(original instanceof Ellipse2D) || !(drawn instanceof Ellipse2D)) {
+            return 0;  // Si les deux formes ne sont pas des cercles, on retourne un score nul
+        }
 
-        // Tolérance (par exemple, pour les petites erreurs de positionnement)
-        final double tolerance = 5.0;
+        Ellipse2D originalBounds = (Ellipse2D) original;
+        Ellipse2D drawnBounds = (Ellipse2D) drawn;
 
-        return 100 - Math.abs(originalBounds.getX() - drawnBounds.getX()) - Math.abs(originalBounds.getY() - drawnBounds.getY()) - Math.abs(originalBounds.getWidth() - drawnBounds.getWidth()) - Math.abs(originalBounds.getHeight() - drawnBounds.getHeight());
+        // Calcul de la différence entre les deux cercles (position, taille)
+        double score = 100 - Math.abs(originalBounds.getX() - drawnBounds.getX())
+                            - Math.abs(originalBounds.getY() - drawnBounds.getY())
+                            - Math.abs(originalBounds.getWidth() - drawnBounds.getWidth())
+                            - Math.abs(originalBounds.getHeight() - drawnBounds.getHeight());
+
+        return score < 0 ? 0 : score; // Limite le score à 0 minimum
     }
 }

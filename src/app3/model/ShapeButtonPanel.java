@@ -1,7 +1,8 @@
 package app3.model;
 
-import app.model.formes.AbstractForme;
 import app3.factory.*;
+import appAncien.model.formes.AbstractForme;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

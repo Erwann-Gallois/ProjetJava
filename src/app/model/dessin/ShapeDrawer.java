@@ -1,78 +1,83 @@
 package app.model.dessin;
 
 import javax.swing.*;
-import java.awt.BorderLayout;
-import java.awt.Rectangle;
+
+import app.view.GameView;
+
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
 
 public class ShapeDrawer extends JFrame {
-    private ShapeButtonPanel shapeButtonPanel;
-    private DrawingPanel drawingPanel;
-    private ArrayList<Shape> tab;
+    private GameView gameView;
+    private ArrayList<Shape> originalShapes;
 
-    public ShapeDrawer() {
-        tab = new ArrayList<>();
-        setTitle("Shape Drawer");
-        setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
-
-        // Create panels
-        drawingPanel = new DrawingPanel(); // Pass null initially
-        shapeButtonPanel = new ShapeButtonPanel(drawingPanel);
-        drawingPanel.setShapeButtonPanel(shapeButtonPanel);
-
-
-        // Add components to frame
-        add(shapeButtonPanel, BorderLayout.NORTH);
-        add(drawingPanel, BorderLayout.CENTER);
-
-        // Set the shape provider after initialization
-    }
-
-    public DrawingPanel getDrawingPanel() {
-        return drawingPanel;
-    }
-
-    public ShapeButtonPanel getShapeButtonPanel() {
-        return shapeButtonPanel;
-    }
-
-    public ArrayList<Shape> GetRandom(){
-        return tab;
+    public ShapeDrawer(GameView gameView) {
+        this.gameView = gameView;
+        originalShapes = new ArrayList<>();
     }
 
     public void displayRandomShapes() {
-        // Générer des formes aléatoires
+        gameView.getDrawingPanel().getShapes().clear();
+        originalShapes.clear();
         Random rand = new Random();
-        int nb = rand.nextInt(5,10);
-        for (int i = 0; i < nb; i++) {  // Par exemple, générer 5 formes
+        int nb = rand.nextInt(1, 11);
+
+        for (int i = 0; i < nb; i++) {
+            Shape shape;
             if (rand.nextBoolean()) {
-                // Créer un rectangle
-                Rectangle forme = new Rectangle(rand.nextInt(800), rand.nextInt(600), rand.nextInt(800/4),rand.nextInt(600/3));
-                drawingPanel.getShapes().put("rectangle" + i, forme);
-                tab.add(forme);
+                // Carré
+                int size = rand.nextInt(50, 250);
+                int x = rand.nextInt(50, 500);
+                int y = rand.nextInt(50, 500);
+                shape = new java.awt.geom.Rectangle2D.Double(x, y, size, size);
+                gameView.getDrawingPanel().addShape("square" + i, shape);
             } else {
-                // Créer un cercle
-                Ellipse2D forme = new Ellipse2D.Double(rand.nextInt(800), rand.nextInt(600), rand.nextInt(800/4),rand.nextInt(600/3));
-                drawingPanel.getShapes().put("circle" + i, forme);
-                tab.add(forme);
+                // Cercle
+                int radius = rand.nextInt(25, 125);
+                int x = rand.nextInt(50, 500);
+                int y = rand.nextInt(50, 500);
+                shape = new java.awt.geom.Ellipse2D.Double(x, y, radius * 2, radius * 2);
+                gameView.getDrawingPanel().addShape("circle" + i, shape);
             }
+
+            originalShapes.add(shape);
         }
-        drawingPanel.repaint();
+
+        gameView.getDrawingPanel().repaint();
     }
 
-    public void freeze(int i) {
-        drawingPanel.setEnabled(false); // Désactiver le panneau de dessin
-        shapeButtonPanel.setEnabled(false);
-        new Timer(i * 1000, e -> {
-            drawingPanel.setEnabled(true); // Réactiver le panneau après i secondes
-            shapeButtonPanel.setEnabled(true);
+    public void freezeDrawing(int seconds) {
+        gameView.getDrawingPanel().setEnabled(false);
+        new Timer(seconds * 1000, e -> {
+            gameView.getDrawingPanel().setEnabled(true);
+            System.out.println("finito");
         }).start();
     }
-    
+
+    public double evaluateDrawing(Shape original, Shape drawn) {
+        ShapeEvaluator evaluator;
+        
+        if (original instanceof Rectangle2D && drawn instanceof Rectangle2D) {
+            evaluator = new ShapeEvaluatorSquare();  // Création de l'évaluateur pour les carrés
+        } else if (original instanceof Ellipse2D && drawn instanceof Ellipse2D) {
+            evaluator = new ShapeEvaluatorCircle();  // Création de l'évaluateur pour les cercles
+        } else {
+            return 0.0;  // Retourner 0 si les formes sont de types différents
+        }
+
+        return evaluator.compareShapes(original, drawn);  // Appel à la méthode d'évaluation
+    }
+
+    public void showScore(double score) {
+        gameView.updateScore(score);
+        JOptionPane.showMessageDialog(gameView, "Votre score : " + (int) score + " / 100", "Résultat", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public ArrayList<Shape> getOriginalShapes() {
+        return originalShapes;
+    }
 }
