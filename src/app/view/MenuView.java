@@ -1,33 +1,47 @@
 package app.view;
 
-import javax.swing.*;
-
-import app.view.Background;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class MenuView extends JFrame {
     private JButton joueurVsIAButton;
     private JButton joueurVsAleatoireButton;
     private JButton joueurVsJoueurButton;
+    private JButton quitterButton;
     private GameView gameView;
 
     public MenuView(GameView gameView) {
         this.gameView = gameView;
         setTitle("Menu de Sélection");
-        setSize(400, 300);
+        setSize(600, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(4, 1));
-        Background bg = new Background("image", "images/menu.png");
+
+        Background bg = new Background("image", "images/menu2.png");
         setContentPane(bg);
+
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        // gbc.anchor = GridBagConstraints.CENTER;
+        // gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.insets = new Insets(100, 0, 0, 0);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(4, 1,0, 30));
+        panel.setBackground(new Color(0, 0, 0, 0));
+
         joueurVsIAButton = new JButton("Par niveau");
-        joueurVsIAButton.setBackground(Color.red);
+        joueurVsIAButton.setBackground(Color.YELLOW);
         joueurVsAleatoireButton = new JButton("Joueur contre Aléatoire");
         joueurVsAleatoireButton.setBackground(Color.BLUE);
         joueurVsJoueurButton = new JButton("Joueur contre Joueur");
         joueurVsJoueurButton.setBackground(Color.GREEN);
+        quitterButton = new JButton("Quitter");
+        quitterButton.setBackground(Color.red);
 
         // Ajouter des ActionListener pour chaque bouton
         joueurVsIAButton.addActionListener(new ActionListener() {
@@ -56,10 +70,20 @@ public class MenuView extends JFrame {
             }
         });
 
+        quitterButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // pour quitter le jeu
+                dispose();
+            }
+        });
+
         // Ajouter les boutons au layout
-        add(joueurVsIAButton);
-        add(joueurVsAleatoireButton);
-        add(joueurVsJoueurButton);
+        panel.add(joueurVsIAButton);
+        panel.add(joueurVsAleatoireButton);
+        panel.add(joueurVsJoueurButton);
+        panel.add(quitterButton);
+        add(panel, gbc);
     }
 
     public void showDrawingScreen() {
