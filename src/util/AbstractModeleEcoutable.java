@@ -14,12 +14,20 @@ public abstract class AbstractModeleEcoutable implements ModeleEcoutable{
         this.ecouteurs = new ArrayList<EcouteurModele>();
     }
 
+    /**
+     * Ajoute un écouteur à la liste d'écouteurs.
+     * @param e Ecouteur à ajouter
+     */
     @Override
     public void ajoutEcouteur(EcouteurModele e){
       
         this.ecouteurs.add(e);
     }
 
+    /**
+     * Retire un écouteur de la liste d'écouteurs.
+     * @param e Ecouteur à retirer
+     */
     @Override
     public void retraitEcouteur(EcouteurModele e){
         this.ecouteurs.remove(e);

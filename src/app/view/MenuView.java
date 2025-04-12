@@ -22,8 +22,7 @@ public class MenuView extends JFrame {
         setLayout(new GridLayout(4, 1));
         Background bg = new Background("image", "images/menu.png");
         setContentPane(bg);
-
-        joueurVsIAButton = new JButton("Joueur contre IA");
+        joueurVsIAButton = new JButton("Par niveau");
         joueurVsIAButton.setBackground(Color.red);
         joueurVsAleatoireButton = new JButton("Joueur contre Aléatoire");
         joueurVsAleatoireButton.setBackground(Color.BLUE);
@@ -35,7 +34,9 @@ public class MenuView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // On ajoutera la logique pour "Joueur contre IA" plus tard
-                System.out.println("Joueur contre IA");
+                setVisible(false);
+                gameView.setVisible(true);
+                gameView.getDrawingPanel().setRandomShapesMode(false);  // Passer en mode IA
             }
         });
 

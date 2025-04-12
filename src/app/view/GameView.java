@@ -1,10 +1,13 @@
 package app.view;
 
 import javax.swing.*;
-
 import app.model.dessin.ShapeDrawer;
+import app.model.niveau.Niveau;
+import app.model.niveau.NiveauxFactory;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class GameView extends JFrame {
     private DrawingPanel drawingPanel;
@@ -64,6 +67,36 @@ public class GameView extends JFrame {
         });
         generateShapes.setRepeats(false);
         generateShapes.start();
+    }
+
+    private void startLevelPhase() {
+        try {
+            Map<String, Niveau> niveaux = NiveauxFactory.charger("dist/niveaux.ser");
+            ArrayList<Niveau> niveauList = new ArrayList<>(niveaux.values());
+            for (Niveau niv : niveauList)
+            {
+                drawingPanel.clearShapes();             // Nettoyage
+                drawingPanel.setInteractive(false);     // Désactiver dessin
+                Timer generateShapes = new Timer(500, e -> {
+                    shapeDrawer.displayLevelShapes(niv);; // Dessine formes du niveau
+            
+                    // Timer unique pour nettoyer après 10 secondes
+                    Timer cleanup = new Timer(10_000, e2 -> {
+                        drawingPanel.clearShapes();             // Nettoyage
+                        drawingPanel.setInteractive(true);      // Activer dessin
+                        shapeButtonPanel.setInteractive(true);  // Activer boutons
+                    });
+                    cleanup.setRepeats(false);
+                    cleanup.start();
+                });
+                generateShapes.setRepeats(false);
+                generateShapes.start();
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erreur lors du chargement ou de l'exécution des niveaux.", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void restartGame() {
