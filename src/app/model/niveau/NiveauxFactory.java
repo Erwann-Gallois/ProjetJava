@@ -1,7 +1,9 @@
 package app.model.niveau;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -40,6 +42,13 @@ public class NiveauxFactory {
         Map<String, Niveau> niveaux = creerTousLesNiveaux();
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fichier))) {
             oos.writeObject(niveaux);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static Map<String, Niveau> charger(String fichier) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier))) {
+            return (Map<String, Niveau>) ois.readObject();
         }
     }
 

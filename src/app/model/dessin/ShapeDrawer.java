@@ -2,6 +2,7 @@ package app.model.dessin;
 
 import javax.swing.*;
 
+import app.model.niveau.Niveau;
 import app.view.GameView;
 
 import java.awt.Shape;
@@ -47,6 +48,38 @@ public class ShapeDrawer extends JFrame {
             originalShapes.add(shape);
         }
 
+        gameView.getDrawingPanel().repaint();
+    }
+
+    public void displayLevelShapes(Niveau niveau) {
+        gameView.getDrawingPanel().getShapes().clear();
+        originalShapes.clear();
+        for (AbstractForme f : niveau.getFormes()) {
+            Shape shape = null;
+
+            if (f instanceof FormeCercle) {
+                shape = new Ellipse2D.Double(f.getX(), f.getY(), f.getW(), f.getH());
+            } else if (f instanceof FormeCarre) {
+                shape = new Rectangle2D.Double(f.getX(), f.getY(), f.getW(), f.getH());
+            } else if (f instanceof FormeTriangle) {
+                int[] xPoints = {
+                    f.getX() + f.getW() / 2,
+                    f.getX(),
+                    f.getX() + f.getW()
+                };
+                int[] yPoints = {
+                    f.getY(),
+                    f.getY() + f.getH(),
+                    f.getY() + f.getH()
+                };
+                shape = new Polygon(xPoints, yPoints, 3);
+            }
+
+            if (shape != null) {
+                gameView.getDrawingPanel().addShape(f.getNom(), shape);
+                originalShapes.add(shape);
+            }
+        }
         gameView.getDrawingPanel().repaint();
     }
 
