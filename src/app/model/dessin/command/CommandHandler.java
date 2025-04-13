@@ -7,11 +7,20 @@ public class CommandHandler {
     ArrayList<OperationCommand> commands = new ArrayList<>();
     ArrayList<OperationCommand> undoCommands = new ArrayList<>();
 
+    /**
+     * Constructeur de la classe CommandHandler.
+     * Initialise les listes de commandes et de commandes annulées.
+     */
     public CommandHandler()
     {
 
     }
 
+    /**
+     * Permet d'annuler la dernière commande exécutée.
+     * Si aucune commande n'est disponible, rien ne se passe.
+     * La commande est ajoutée à la liste des commandes annulées.
+     */
     public void undo()
     {
         int size = commands.size();
@@ -23,6 +32,11 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Permet de rétablir la dernière commande annulée.
+     * Si aucune commande n'est disponible, rien ne se passe.
+     * La commande est retirée de la liste des commandes annulées.
+     */
     public void redo()
     {
         int size = undoCommands.size();
@@ -33,6 +47,11 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Permet d'exécuter une commande.
+     * La commande est ajoutée à la liste des commandes exécutées.
+     * @param o La commande à exécuter.
+     */
     public void handle(OperationCommand o)
     {
         commands.add(o);
