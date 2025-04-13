@@ -21,6 +21,10 @@ public class DrawingPanel extends JPanel {
     private FormeFactory shapeFactory;
     private CommandHandler commandHandler = new CommandHandler();
     
+    /**
+     * Constructeur de la classe DrawingPanel.
+     * @param shapeButtonPanel
+     */
     public DrawingPanel(ShapeButtonPanel shapeButtonPanel) {
         setPreferredSize(new Dimension(800, 600));
         setBackground(Color.WHITE);
@@ -37,19 +41,9 @@ public class DrawingPanel extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 if (!interactive) return;
                 endPoint = e.getPoint();
-                // Shape shape = createShape(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
-                // if (shapeButtonPanel.getCurrentShape().equals("rectangle")) {
-                //     shapes.put("rectangle" + shapeButtonPanel.getNbreRectangle(), shape);
-                // } else if (shapeButtonPanel.getCurrentShape().equals("circle")) {
-                //     shapes.put("circle" + shapeButtonPanel.getNbreCircle(), shape);
-                // }
-                // repaint();
                 shapeFactory = shapeButtonPanel.getFactory();
 
                 if (startPoint != null && endPoint != null && shapeFactory != null) {
-
-                    // System.out.println(shapeFactory);
-
                     Shape newShape = shapeFactory.createForme(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
                     String shapeName = shapeButtonPanel.getCurrentShape();
                     String key = shapeName + shapeButtonPanel.getNbreRectangle();
@@ -72,52 +66,69 @@ public class DrawingPanel extends JPanel {
         addMouseMotionListener(mouseHandler);
     }
 
+    /**
+     * Ajoute une forme à la liste des formes.
+     * @param id
+     * @param forme
+     */
     public void addShape(String id, Shape forme) {
         shapes.put(id, forme);
         repaint();
     }
 
+    /**
+     * Supprime l'ensemble des formes de la liste.
+     */
     public void clearShapes() {
         shapes.clear();
         repaint();
     }
 
+    /**
+     * Setter la factory de forme.
+     * @param shapeFactory
+     */
     public void setFactory(FormeFactory shapeFactory) {
         this.shapeFactory = shapeFactory;
     }
 
+    /**
+     * Accesseur de la liste des formes dessinées
+     * @return Map avec le nom et la forme dessinées
+     */
     public HashMap<String, Shape> getShapes() {
         return shapes;
     }
 
+    /**
+     * Setter pour le mode interactif
+     * @param interactive
+     */
     public void setInteractive(boolean interactive) {
         this.interactive = interactive;
     }
     
-
+    /**
+     * Méthode pour annuler la dernière action.
+     */
     public void undo() {
         commandHandler.undo();
         repaint();
     }
     
+    /**
+     * Méthode pour rétablir la dernière action annulée.
+     */
     public void redo() {
         commandHandler.redo();
         repaint();
     }
     
-
+    /**
+     * Méthode pour peindre le composant.
+     */
     @Override
     protected void paintComponent(Graphics g) {
-        // super.paintComponent(g);
-        // for (Shape shape : shapes.values()) {
-        //     if (shape instanceof Rectangle) {
-        //         g.fillRect((int) shape.getBounds2D().getX(), (int) shape.getBounds2D().getY(), (int) shape.getBounds2D().getWidth(), (int) shape.getBounds2D().getHeight());
-        //         System.out.print("On dessine");
-        //     } else if (shape instanceof Ellipse2D.Double) {
-        //         g.fillOval((int) shape.getBounds2D().getX(), (int) shape.getBounds2D().getY(), (int) shape.getBounds2D().getWidth(), (int) shape.getBounds2D().getHeight());
-        //         System.out.print("On dessine");
-        //     }
-        // }
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -137,30 +148,18 @@ public class DrawingPanel extends JPanel {
         }
     }
 
-    // private Shape createShape(int x1, int y1, int x2, int y2) {
-    //     if (shapeButtonPanel.getCurrentShape().equals("rectangle")) {
-    //         int x = Math.min(x1, x2);
-    //         int y = Math.min(y1, y2);
-    //         int width = Math.abs(x1 - x2);
-    //         int height = Math.abs(y1 - y2);
-    //         return new Rectangle(x, y, width, height);
-
-    //     } else if (shapeButtonPanel.getCurrentShape().equals("circle")) {
-    //         int x = Math.min(x1, x2);
-    //         int y = Math.min(y1, y2);
-    //         int width = Math.abs(x1 - x2);
-    //         int height = Math.abs(y1 - y2);
-    //         int diameter = Math.max(width, height);
-    //         return new Ellipse2D.Double(x, y, diameter, diameter);
-    //     }
-    //     return null;
-    // }
-
-    // Method to set the shape button panel
+    /**
+     * Setter pour le panneau de boutons de forme.
+     * @param newshapeButtonPanel
+     */
     public void setShapeButtonPanel(ShapeButtonPanel newshapeButtonPanel) {
         this.shapeButtonPanel = newshapeButtonPanel;
     }
 
+    /**
+     * Setter pour le mode aléatoire.
+     * @param mode
+     */
     public void setRandomShapesMode(boolean mode) {
         this.randomShapesMode = mode;
     }

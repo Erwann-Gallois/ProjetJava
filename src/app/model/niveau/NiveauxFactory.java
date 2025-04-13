@@ -14,6 +14,11 @@ import app.model.formes.FormeTriangle;
 
 public class NiveauxFactory {
 
+    /**
+     * Crée tous les niveaux disponibles dans l'application.
+     *
+     * @return Une map contenant tous les niveaux avec leur nom comme clé.
+     */
     public static Map<String, Niveau> creerTousLesNiveaux() {
         Map<String, Niveau> niveaux = new LinkedHashMap<>();
 
@@ -38,6 +43,11 @@ public class NiveauxFactory {
         return niveaux;
     }
 
+    /**
+     * Sauvegarde tous les niveaux dans un fichier.
+     * @param fichier Le nom du fichier où sauvegarder les niveaux.
+     * @throws IOException Si une erreur d'entrée/sortie se produit.
+     */
     public static void sauvegarder(String fichier) throws IOException {
         Map<String, Niveau> niveaux = creerTousLesNiveaux();
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fichier))) {
@@ -45,6 +55,13 @@ public class NiveauxFactory {
         }
     }
 
+    /**
+     * Charge les niveaux à partir d'un fichier.
+     * @param fichier Le nom du fichier à charger.
+     * @return La map contenant les niveaux chargés.
+     * @throws IOException Si une erreur d'entrée/sortie se produit.
+     * @throws ClassNotFoundException Si la classe Niveau n'est pas trouvée.
+     */
     @SuppressWarnings("unchecked")
     public static Map<String, Niveau> charger(String fichier) throws IOException, ClassNotFoundException {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier))) {
@@ -52,6 +69,10 @@ public class NiveauxFactory {
         }
     }
 
+    /**
+     * Méthode principale pour tester la sauvegarde des niveaux.
+     * @param args Arguments de la ligne de commande.
+     */
     public static void main(String[] args) {
         try {
             sauvegarder("dist/niveaux.ser");

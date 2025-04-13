@@ -35,6 +35,10 @@ public class Background extends JPanel{
        
     }
 
+    /**
+     * Permet de dessiner l'image 
+     * @param g La fenetre ou dessiner l'image
+     */
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);

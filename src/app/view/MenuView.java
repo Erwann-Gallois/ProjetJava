@@ -12,6 +12,10 @@ public class MenuView extends JFrame {
     private JButton quitterButton;
     private GameView gameView;
 
+    /**
+     * Constructeur de la classe MenuView.
+     * @param gameView La vue principale du jeu associée à ce menu
+     */
     public MenuView(GameView gameView) {
         this.gameView = gameView;
         setTitle("Menu de Sélection");
@@ -86,6 +90,9 @@ public class MenuView extends JFrame {
         add(panel, gbc);
     }
 
+    /**
+     * Affiche l'écran de dessin.
+     */
     public void showDrawingScreen() {
         // Changer de vue pour l'interface de dessin
         setVisible(false);

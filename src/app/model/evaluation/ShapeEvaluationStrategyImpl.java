@@ -2,16 +2,12 @@ package app.model.evaluation;
 
 import java.awt.Shape;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import app.model.dessin.ShapeEvaluator;
 import app.model.dessin.ShapeEvaluatorCircle;
 import app.model.dessin.ShapeEvaluatorSquare;
 import app.model.dessin.ShapeEvaluatorTriangle;
-import app.model.dessin.factory.AbstractFormeFactory;
 import app.model.dessin.factory.CircleFactory;
-import app.model.dessin.factory.FormeFactory;
 import app.model.dessin.factory.RectangleFactory;
 import app.model.dessin.factory.TriangleFactory;
 
@@ -21,7 +17,13 @@ public class ShapeEvaluationStrategyImpl {
     private final ShapeEvaluator circleEvaluator = new ShapeEvaluatorCircle();
     private final ShapeEvaluator triangleEvaluator = new ShapeEvaluatorTriangle();
 
-    // Méthode d'évaluation qui compare les formes dessinées avec les formes de référence
+    /**
+     * Évalue la similarité entre les formes dessinées par l'utilisateur et les formes de référence.
+     *
+     * @param userShapes      Les formes dessinées par l'utilisateur.
+     * @param referenceForms  Les formes de référence.
+     * @return Un score de similarité entre 0 et 100.
+     */
     public double evaluate(ArrayList<Shape> userShapes, ArrayList<Shape> referenceForms) {
         double total = 0.0;
 

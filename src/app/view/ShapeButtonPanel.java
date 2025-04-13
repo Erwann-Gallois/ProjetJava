@@ -117,27 +117,51 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     }
 
     
+    /**
+     * Méthode pour obtenir le nom de la forme actuelle.
+     * @return Le nom de la forme actuelle
+     */
     public String getCurrentShape() {
         return currentShape;
     }
 
+    /**
+     * Accesseur du nombre de rectangle.
+     * @return Le nombre de rectangles
+     */
     public int getNbreRectangle() {
         return nbreRectangle;
     }
 
+    /**
+     * Accesseur du nombre de cercles.
+     * @return Le nombre de cercles
+     */
     public int getNbreCircle() {
         return nbreCircle;
     }
 
+    /**
+     * Accesseur du nombre de triangles.
+     * @return Le nombre de triangles
+     */
     public int getNbreTriangle()
     {
         return nbreTriangle;
     }
 
+    /**
+     * Setter pour le panneau de dessin.
+     * @param panel Le panneau de dessin
+     */
     public void setDrawingPanel(DrawingPanel panel){
         drawingPanel = panel;
     }
 
+    /**
+     * Setter pour le mode interactif.
+     * @param interactive Le mode interactif
+     */
     public void setInteractive(boolean interactive) {
         this.interactive = interactive;
     
@@ -149,14 +173,26 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Accesseur pour les formes dessinées.
+     * @return Liste des formes dessinées
+     */
     public ArrayList<Shape> getShapesDrawn() {  // Liste des formes dessinées sous forme de Shape
         return shapesDrawn;
     }
 
+    /**
+     * Setter du mode bouton pour aléatoire
+     * @param b true si le bouton doit être activé, false sinon
+     */
     public void setRandomShapeButtonEnabled(boolean b) {
         generateShapesButton.setEnabled(b);
     }
 
+    /**
+     * Accesseur pour la factory de forme.
+     * @return La factory de forme
+     */
     public FormeFactory getFactory() {
         return shapeFactory;
     }
