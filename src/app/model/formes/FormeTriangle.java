@@ -1,5 +1,10 @@
 package app.model.formes;
 
+/**
+ * Classe FormeTriangle
+ * Représente une forme triangle.
+ * Elle hérite de la classe abstraite AbstractForme.
+ */
 public class FormeTriangle extends AbstractForme{
 
     /**

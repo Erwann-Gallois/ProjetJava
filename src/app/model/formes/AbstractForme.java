@@ -2,6 +2,10 @@ package app.model.formes;
 
 import java.io.Serializable;
 
+/**
+ * Classe abstraite représentant une forme géométrique.
+ * Elle implémente l'interface Serializable pour permettre la sérialisation.
+ */
 public abstract class AbstractForme implements Serializable {
     private String nom;
     private int x, y, w, h;
@@ -31,25 +35,25 @@ public abstract class AbstractForme implements Serializable {
 
     /**
      * Accesseur pour recuperer x 
-     * @return x
+     * @return x La coordonnée x du coin supérieur gauche
      */
     public int getX() { return x; }
 
     /**
      * Accesseur pour recuperer y
-     * @return y
+     * @return y La coordonnée y du coin supérieur gauche
      */
     public int getY() { return y; }
 
     /**
      * Accesseur pour recuperer la largeur de la forme
-     * @return w 
+     * @return w  La largeur de la forme
      */
     public int getW() { return w; }
 
     /**
      * Accesseur pour recuperer la longueur de la forme
-     * @return h
+     * @return h La longueur de la forme
      */
     public int getH() { return h; }
 }

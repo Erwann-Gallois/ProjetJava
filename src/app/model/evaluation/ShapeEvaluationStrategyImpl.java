@@ -11,6 +11,11 @@ import app.model.dessin.factory.CircleFactory;
 import app.model.dessin.factory.RectangleFactory;
 import app.model.dessin.factory.TriangleFactory;
 
+/**
+ * Classe ShapeEvaluationStrategyImpl
+ * Représente une stratégie d'évaluation des formes.
+ * Elle évalue la similarité entre les formes dessinées par l'utilisateur et les formes de référence.
+ */
 public class ShapeEvaluationStrategyImpl {
 
     private final ShapeEvaluator squareEvaluator = new ShapeEvaluatorSquare();

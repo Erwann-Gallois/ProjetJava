@@ -2,6 +2,11 @@ package app.model.dessin.factory;
 
 import util.AbstractModeleEcoutable;
 
+/**
+ * Classe abstraite représentant une fabrique de formes.
+ * Elle étend la classe AbstractModeleEcoutable et implémente l'interface FormeFactory.
+ * Cette classe sert de base pour créer des formes spécifiques.
+ */
 public abstract class AbstractFormeFactory extends AbstractModeleEcoutable implements FormeFactory{
 
     private String pieceName;

@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.*;
 
+/**
+ * Classe GameView
+ * Représente la vue principale du jeu.
+ * Elle gère l'affichage des formes, le score et les interactions avec l'utilisateur.
+ */
 public class GameView extends JFrame {
     private DrawingPanel drawingPanel;
     private ShapeButtonPanel shapeButtonPanel;
@@ -144,7 +149,7 @@ public class GameView extends JFrame {
 
     /**
      * Setter pour le mode aléatoire.
-     * @param mode
+     * @param mode boolean
      */
     public void setRandomShapesMode(boolean mode) {
         this.randomShapesMode = mode;

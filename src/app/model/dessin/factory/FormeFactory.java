@@ -2,6 +2,11 @@ package app.model.dessin.factory;
 
 import java.awt.Shape;
 
+/**
+ * Interface FormeFactory
+ * Représente une fabrique de formes.
+ * Elle permet de créer des formes géométriques.
+ */
 public interface FormeFactory{
 
     /**

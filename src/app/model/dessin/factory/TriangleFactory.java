@@ -3,6 +3,11 @@ package app.model.dessin.factory;
 import java.awt.Shape;
 import java.awt.Polygon;
 
+/**
+ * Classe TriangleFactory
+ * Représente une fabrique de triangles.
+ * Elle implémente l'interface FormeFactory.
+ */
 public class TriangleFactory implements FormeFactory, app3.factory.FormeFactory {
 
     /**

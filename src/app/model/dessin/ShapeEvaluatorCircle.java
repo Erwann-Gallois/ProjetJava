@@ -3,6 +3,11 @@ package app.model.dessin;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
+/**
+ * Classe ShapeEvaluatorCircle
+ * Représente un évaluateur de formes pour les cercles.
+ * Elle implémente l'interface ShapeEvaluator.
+ */
 public class ShapeEvaluatorCircle implements ShapeEvaluator {
 
     /**

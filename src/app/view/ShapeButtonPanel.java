@@ -12,6 +12,11 @@ import javax.swing.*; // Importation de Shape
 import app.model.dessin.ShapeDrawer;
 import app.model.dessin.factory.*;
 
+/**
+ * Classe ShapeButtonPanel
+ * Représente le panneau de boutons pour sélectionner les formes à dessiner.
+ * Elle gère les événements des boutons et l'affichage des formes sélectionnées.
+ */
 public class ShapeButtonPanel extends JPanel implements ActionListener {
     private JButton rectangleButton;
     private JButton circleButton;

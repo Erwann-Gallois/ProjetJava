@@ -12,6 +12,11 @@ import app.model.formes.FormeCarre;
 import app.model.formes.FormeCercle;
 import app.model.formes.FormeTriangle;
 
+/**
+ * Classe NiveauxFactory
+ * Cette classe est responsable de la création et de la gestion des niveaux de jeu.
+ * Elle permet de créer des niveaux prédéfinis et de les sauvegarder/charger à partir d'un fichier.
+ */
 public class NiveauxFactory {
 
     /**

@@ -1,5 +1,9 @@
 package app.model.formes;
-
+/**
+ * Classe FormeCercle
+ * Représente une forme cercle.
+ * Elle hérite de la classe abstraite AbstractForme.
+ */
 public class FormeCercle extends AbstractForme {
 
     /**

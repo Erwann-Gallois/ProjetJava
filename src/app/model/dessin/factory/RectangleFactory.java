@@ -2,6 +2,11 @@ package app.model.dessin.factory;
 import java.awt.Rectangle;
 import java.awt.Shape;
 
+/**
+ * Classe RectangleFactory
+ * Représente une fabrique de rectangles.
+ * Elle implémente l'interface FormeFactory.
+ */
 public class RectangleFactory implements FormeFactory, app3.factory.FormeFactory {
     
     /**

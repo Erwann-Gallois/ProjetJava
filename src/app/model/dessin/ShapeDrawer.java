@@ -17,6 +17,9 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Classe ShapeDrawer responsable de dessiner des formes sur un panneau de dessin.
+ */
 public class ShapeDrawer extends JFrame {
     private GameView gameView;
     private ArrayList<Shape> originalShapes;
@@ -106,7 +109,7 @@ public class ShapeDrawer extends JFrame {
 
     /**
      * Fige le dessin pendant un certain nombre de secondes.
-     * @param seconds
+     * @param seconds Le nombre de secondes pendant lesquelles le dessin doit être figé.
      */
     public void freezeDrawing(int seconds) {
         gameView.getDrawingPanel().setEnabled(false);
@@ -118,8 +121,8 @@ public class ShapeDrawer extends JFrame {
 
     /**
      * Évalue la précision du dessin de l'utilisateur par rapport à la forme originale.
-     * @param original La forme originale à comparer.
-     * @param drawn La forme dessinée par l'utilisateur.
+     * @param originals La forme originale à comparer.
+     * @param drawns La forme dessinée par l'utilisateur.
      * @return Un score entre 0 et 100 représentant la précision du dessin.
      */
     public double evaluateDrawing(ArrayList<Shape> originals, ArrayList<Shape> drawns) {

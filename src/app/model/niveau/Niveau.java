@@ -6,6 +6,11 @@ import java.util.List;
 
 import app.model.formes.AbstractForme;
 
+/**
+ * Classe Niveau
+ * Représente un niveau de jeu contenant une liste de formes.
+ * Elle implémente l'interface Serializable pour permettre la sérialisation.
+ */
 public class Niveau implements Serializable {
 
     private String nom;

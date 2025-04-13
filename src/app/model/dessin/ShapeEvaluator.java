@@ -2,6 +2,11 @@ package app.model.dessin;
 
 import java.awt.Shape;
 
+/**
+ * Interface ShapeEvaluator
+ * Représente un évaluateur de formes.
+ * Elle permet de comparer une forme dessinée avec une forme originale.
+ */
 public interface ShapeEvaluator {
     /**
      * Compare les formes dessinées avec la forme originale.

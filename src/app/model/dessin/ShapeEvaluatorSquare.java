@@ -3,6 +3,11 @@ package app.model.dessin;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 
+/**
+ * Classe ShapeEvaluatorSquare
+ * Représente un évaluateur de formes pour les carrés.
+ * Elle implémente l'interface ShapeEvaluator.
+ */
 public class ShapeEvaluatorSquare implements ShapeEvaluator {
 
     /**

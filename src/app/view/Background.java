@@ -5,6 +5,10 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/**
+ * La classe Background permet de créer un JPanel avec une image de fond.
+ * Elle hérite de JPanel et redéfinit la méthode paintComponent pour dessiner l'image.
+ */
 public class Background extends JPanel{
 
     //Type de contenu

@@ -3,6 +3,11 @@ package app.model.evaluation;
 import java.util.Map;
 import java.awt.Shape;
 
+/**
+ * Interface EvaluationStrategy
+ * Représente une stratégie d'évaluation.
+ * Elle permet d'évaluer la similarité entre les formes dessinées par le joueur et les formes de référence.
+ */
 public interface EvaluationStrategy {
 
     /**

@@ -5,6 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+/**
+ * Classe MenuView
+ * Représente le menu de sélection du jeu.
+ * Elle permet à l'utilisateur de choisir entre différentes options de jeu.
+ */
 public class MenuView extends JFrame {
     private JButton joueurVsIAButton;
     private JButton joueurVsAleatoireButton;

@@ -3,6 +3,11 @@ package app.model.dessin.command;
 import java.awt.Shape;
 import java.util.Map;
 
+/**
+ * Classe DrawShapeCommand
+ * Représente une commande pour dessiner une forme.
+ * Elle implémente l'interface OperationCommand.
+ */
 public class DrawShapeCommand implements OperationCommand {
     private Map<String, Shape> shapeMap;
     private String key;

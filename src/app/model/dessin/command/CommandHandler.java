@@ -2,6 +2,10 @@ package app.model.dessin.command;
 
 import java.util.*;
 
+/**
+ * Classe CommandHandler
+ * Gère l'exécution et l'annulation des commandes.
+ */
 public class CommandHandler {
 
     ArrayList<OperationCommand> commands = new ArrayList<>();

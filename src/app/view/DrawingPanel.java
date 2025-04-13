@@ -10,6 +10,11 @@ import app.model.dessin.command.DrawShapeCommand;
 import app.model.dessin.factory.FormeFactory;
 
 
+/**
+ * Classe DrawingPanel
+ * Représente le panneau de dessin.
+ * Elle permet de dessiner des formes géométriques.
+ */
 public class DrawingPanel extends JPanel {
     private Point startPoint;
     private Point endPoint;
@@ -23,7 +28,8 @@ public class DrawingPanel extends JPanel {
     
     /**
      * Constructeur de la classe DrawingPanel.
-     * @param shapeButtonPanel
+     * @param shapeButtonPanel ShapeButtonPanel
+     * @see ShapeButtonPanel
      */
     public DrawingPanel(ShapeButtonPanel shapeButtonPanel) {
         setPreferredSize(new Dimension(800, 600));
@@ -68,8 +74,10 @@ public class DrawingPanel extends JPanel {
 
     /**
      * Ajoute une forme à la liste des formes.
-     * @param id
-     * @param forme
+     * @param id String
+     * @param forme Shape
+     * @see Shape
+     * @see java.awt.Shape
      */
     public void addShape(String id, Shape forme) {
         shapes.put(id, forme);
@@ -86,7 +94,8 @@ public class DrawingPanel extends JPanel {
 
     /**
      * Setter la factory de forme.
-     * @param shapeFactory
+     * @param shapeFactory FormeFactory
+     * @see FormeFactory
      */
     public void setFactory(FormeFactory shapeFactory) {
         this.shapeFactory = shapeFactory;
@@ -102,7 +111,7 @@ public class DrawingPanel extends JPanel {
 
     /**
      * Setter pour le mode interactif
-     * @param interactive
+     * @param interactive boolean
      */
     public void setInteractive(boolean interactive) {
         this.interactive = interactive;
@@ -126,6 +135,10 @@ public class DrawingPanel extends JPanel {
     
     /**
      * Méthode pour peindre le composant.
+     * @param g Le contexte graphique
+     * @see javax.swing.JComponent#paintComponent(Graphics)
+     * @see java.awt.Graphics
+     * @see java.awt.Graphics2D
      */
     @Override
     protected void paintComponent(Graphics g) {
@@ -150,7 +163,8 @@ public class DrawingPanel extends JPanel {
 
     /**
      * Setter pour le panneau de boutons de forme.
-     * @param newshapeButtonPanel
+     * @param newshapeButtonPanel ShapeButtonPanel
+     * @see ShapeButtonPanel
      */
     public void setShapeButtonPanel(ShapeButtonPanel newshapeButtonPanel) {
         this.shapeButtonPanel = newshapeButtonPanel;
@@ -158,7 +172,7 @@ public class DrawingPanel extends JPanel {
 
     /**
      * Setter pour le mode aléatoire.
-     * @param mode
+     * @param mode boolean
      */
     public void setRandomShapesMode(boolean mode) {
         this.randomShapesMode = mode;

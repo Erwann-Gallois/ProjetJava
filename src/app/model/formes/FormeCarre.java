@@ -1,5 +1,10 @@
 package app.model.formes;
 
+/**
+ * Classe FormeCarre
+ * Représente une forme carrée.
+ * Elle hérite de la classe abstraite AbstractForme.
+ */
 public class FormeCarre extends AbstractForme{
     /**
      * Constructeur de la classe FormeCarre

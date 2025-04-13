@@ -3,6 +3,11 @@ package app.model.dessin;
 import java.awt.Polygon;
 import java.awt.Shape;
 
+/**
+ * Classe ShapeEvaluatorTriangle
+ * Représente un évaluateur de formes pour les triangles.
+ * Elle implémente l'interface ShapeEvaluator.
+ */
 public class ShapeEvaluatorTriangle implements ShapeEvaluator {
 
     /**
