@@ -4,6 +4,14 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
 public class ShapeEvaluatorCircle implements ShapeEvaluator {
+
+    /**
+     * Compare deux formes de type cercle.
+     *
+     * @param original La forme originale.
+     * @param drawn    La forme dessinée.
+     * @return Un score de similarité entre 0 et 100.
+     */
     @Override
     public double compareShapes(Shape original, Shape drawn) {
         Ellipse2D originalBounds = (Ellipse2D) original;

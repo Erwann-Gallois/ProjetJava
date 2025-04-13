@@ -10,6 +10,12 @@ public abstract class AbstractFormeFactory extends AbstractModeleEcoutable imple
     private Integer w;
     private Integer h;
 
+    /**
+     * Constructeur de la classe AbstractFormeFactory.
+     * Initialise les attributs de la classe.
+     *
+     * @param type Le type de la forme à créer.
+     */
     public AbstractFormeFactory(String type) {
         this.pieceName = type;
         this.X = null;

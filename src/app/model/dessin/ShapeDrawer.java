@@ -15,18 +15,27 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Random;
 
 public class ShapeDrawer extends JFrame {
     private GameView gameView;
     private ArrayList<Shape> originalShapes;
 
+    /**
+     * Constructeur de la classe ShapeDrawer.
+     * Initialise le panneau de dessin et la liste des formes originales.
+     *
+     * @param gameView La vue du jeu.
+     */
     public ShapeDrawer(GameView gameView) {
         this.gameView = gameView;
         originalShapes = new ArrayList<>();
     }
 
+    /**
+     * Affiche un nombre aléatoire de cercles ou carrés sur le panneau de dessin.
+     * Les formes générées sont stockées pour l'évaluation ultérieure.
+     */
     public void displayRandomShapes() {
         gameView.getDrawingPanel().getShapes().clear();
         originalShapes.clear();
@@ -57,6 +66,12 @@ public class ShapeDrawer extends JFrame {
         gameView.getDrawingPanel().repaint();
     }
 
+    /**
+     * Affiche les formes d'un niveau spécifique sur le panneau de dessin.
+     * Les formes sont créées à partir des données du niveau et stockées pour l'évaluation ultérieure.
+     *
+     * @param niveau le niveau dont les formes doivent être affichées
+     */
     public void displayLevelShapes(Niveau niveau) {
         gameView.getDrawingPanel().getShapes().clear();
         originalShapes.clear();
@@ -89,6 +104,10 @@ public class ShapeDrawer extends JFrame {
         gameView.getDrawingPanel().repaint();
     }
 
+    /**
+     * Fige le dessin pendant un certain nombre de secondes.
+     * @param seconds
+     */
     public void freezeDrawing(int seconds) {
         gameView.getDrawingPanel().setEnabled(false);
         new Timer(seconds * 1000, e -> {
@@ -97,15 +116,29 @@ public class ShapeDrawer extends JFrame {
         }).start();
     }
 
+    /**
+     * Évalue la précision du dessin de l'utilisateur par rapport à la forme originale.
+     * @param original La forme originale à comparer.
+     * @param drawn La forme dessinée par l'utilisateur.
+     * @return Un score entre 0 et 100 représentant la précision du dessin.
+     */
     public double evaluateDrawing(ArrayList<Shape> originals, ArrayList<Shape> drawns) {
         return new ShapeEvaluationStrategyImpl().evaluate(drawns, originals);
     }
 
+    /**
+     * Affiche le score de l'utilisateur dans une boîte de dialogue.
+     * @param score Le score à afficher.
+     */
     public void showScore(double score) {
         gameView.updateScore(score);
         JOptionPane.showMessageDialog(gameView, "Votre score : " + (int) score + " / 100", "Résultat", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Récupère la liste des formes originales.
+     * @return La liste des formes originales.
+     */
     public ArrayList<Shape> getOriginalShapes() {
         return originalShapes;
     }

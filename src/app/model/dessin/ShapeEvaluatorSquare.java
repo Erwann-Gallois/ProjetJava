@@ -4,6 +4,14 @@ import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 
 public class ShapeEvaluatorSquare implements ShapeEvaluator {
+
+    /**
+     * Compare deux formes de type carré.
+     *
+     * @param original La forme originale.
+     * @param drawn    La forme dessinée.
+     * @return Un score de similarité entre 0 et 100.
+     */
     @Override
     public double compareShapes(Shape original, Shape drawn) {
 
