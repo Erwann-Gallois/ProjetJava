@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ProjetJava" default="dist" basedir=".">
+
+    <!-- Répertoires -->
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+    <property name="main-class" value="app.Main"/>
+
+    <!-- Nettoyage -->
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+
+    <!-- Compilation -->
+    <target name="compile">
+        <mkdir dir="${build}"/>
+        <javac includeantruntime="false" srcdir="${src}" destdir="${build}"/>
+    </target>
+
+    <!-- Génération du JAR -->
+    <target name="dist" depends="compile">
+        <mkdir dir="${dist}"/>
+        <jar destfile="${dist}/ProjetJava.jar" basedir="${build}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+    </target>
+</project>
