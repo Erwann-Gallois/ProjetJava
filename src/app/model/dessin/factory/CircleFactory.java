@@ -7,7 +7,7 @@ import java.awt.geom.Ellipse2D;
  * Représente une fabrique de cercles.
  * Elle implémente l'interface FormeFactory.
  */
-public class CircleFactory implements FormeFactory, app3.factory.FormeFactory {
+public class CircleFactory implements FormeFactory {
 
     /**
      * Permet de créer une forme de type cercle.

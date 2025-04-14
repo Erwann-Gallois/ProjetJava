@@ -7,7 +7,7 @@ import java.awt.Shape;
  * Représente une fabrique de rectangles.
  * Elle implémente l'interface FormeFactory.
  */
-public class RectangleFactory implements FormeFactory, app3.factory.FormeFactory {
+public class RectangleFactory implements FormeFactory {
     
     /**
      * Permet de créer une forme de type Rectangle ou Carré.

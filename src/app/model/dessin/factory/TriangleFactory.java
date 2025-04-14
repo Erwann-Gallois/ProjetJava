@@ -8,7 +8,7 @@ import java.awt.Polygon;
  * Représente une fabrique de triangles.
  * Elle implémente l'interface FormeFactory.
  */
-public class TriangleFactory implements FormeFactory, app3.factory.FormeFactory {
+public class TriangleFactory implements FormeFactory {
 
     /**
      * Permet de créer une forme de type Triangle.
