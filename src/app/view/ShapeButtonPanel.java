@@ -22,6 +22,7 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     private JButton circleButton;
     private JButton triangleButton;
     private JButton termineButton;
+    private JButton moveButton;
     private JButton generateShapesButton;
     private JButton undoButton;
     private JButton redoButton;
@@ -33,6 +34,7 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
     private ArrayList<Shape> shapesDrawn = new ArrayList<>(); // Utilisation de Shape
     private ShapeDrawer shapeDrawer;
     private boolean interactive = true;
+    private boolean isMoveMode = false;
     public FormeFactory shapeFactory;  // Factory qui crée des formes de type Shape
     private DrawingPanel drawingPanel;
 
@@ -52,6 +54,7 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
         add(generateShapesButton);
         
         rectangleButton = new JButton("Rectangle");
+        moveButton = new JButton("Déplacer");
         circleButton = new JButton("Cercle");
         triangleButton = new JButton("Triangle");
         termineButton = new JButton("Termine");
@@ -61,6 +64,7 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
         this.redoButton = new JButton("redo");
         undoButton.addActionListener(e -> drawingPanel.undo());
         redoButton.addActionListener(e -> drawingPanel.redo());
+        moveButton.addActionListener(e -> toggleMoveMode());
 
         rectangleButton.addActionListener(this);
         circleButton.addActionListener(this);
@@ -72,7 +76,8 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
         add(triangleButton, BorderLayout.CENTER);
         add(shapeLabel, BorderLayout.CENTER);
         add(termineButton, BorderLayout.EAST);
-
+        
+        add(moveButton);
         add(this.undoButton);
         add(this.redoButton);
     }
@@ -132,6 +137,18 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
      */
     public String getCurrentShape() {
         return currentShape;
+    }
+
+    private void toggleMoveMode() {
+        isMoveMode = !isMoveMode;
+        if (isMoveMode) {
+            System.out.println("Mode Déplacement activé");
+            moveButton.setText("Annuler Déplacement");
+        } else {
+            System.out.println("Mode Déplacement désactivé");
+            moveButton.setText("Déplacer");
+        }
+        drawingPanel.setMoveMode(isMoveMode);  // Transmettre l'état à DrawingPanel
     }
 
     /**

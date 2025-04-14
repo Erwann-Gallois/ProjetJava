@@ -45,7 +45,6 @@ public class ShapeEvaluationStrategyImpl {
                 String key = entry.getKey();
                 Shape drawn = entry.getValue();
                 double tempo = 0.0;
-                System.out.println(key);
                 // Évaluation selon le type de forme
                 if (key.toLowerCase().contains("rectangle") && reference instanceof Rectangle2D) {
                     score = squareEvaluator.compareShapes(reference, drawn);

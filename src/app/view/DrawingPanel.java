@@ -2,7 +2,10 @@ package app.view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.AffineTransform;
 import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.*;
 
 import app.model.dessin.command.CommandHandler;
@@ -22,6 +25,9 @@ public class DrawingPanel extends JPanel {
     private ShapeButtonPanel shapeButtonPanel;
     private boolean randomShapesMode = false;
     private boolean interactive = true;
+    private boolean isMoveMode = false;
+    private String selectedShapeKey = null;
+    private Point lastMousePosition = null;
 
     private FormeFactory shapeFactory;
     private CommandHandler commandHandler = new CommandHandler();
@@ -40,34 +46,72 @@ public class DrawingPanel extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!interactive) return;
-                startPoint = e.getPoint();
-            }
         
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (!interactive) return;
-                endPoint = e.getPoint();
-                shapeFactory = shapeButtonPanel.getFactory();
-
-                if (startPoint != null && endPoint != null && shapeFactory != null) {
-                    Shape newShape = shapeFactory.createForme(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
-                    String shapeName = shapeButtonPanel.getCurrentShape();
-                    String key = shapeName + shapeButtonPanel.getNbreRectangle();
-                    shapes.put(shapeName + shapeButtonPanel.getNbreRectangle(), newShape);
-                    System.out.println(shapes);
-                    DrawShapeCommand command = new DrawShapeCommand(shapes, key, newShape);
-                    commandHandler.handle(command);
-                    repaint();
+                startPoint = e.getPoint();
+        
+                if (isMoveMode) {
+                    for (Map.Entry<String, Shape> entry : shapes.entrySet()) {
+                        if (entry.getValue().contains(startPoint)) {
+                            selectedShapeKey = entry.getKey();
+                            lastMousePosition = startPoint;
+                            break;
+                        }
+                    }
                 }
             }
         
             @Override
             public void mouseDragged(MouseEvent e) {
                 if (!interactive) return;
+        
                 endPoint = e.getPoint();
-                repaint();
+        
+                if (isMoveMode && selectedShapeKey != null && lastMousePosition != null) {
+                    Shape selectedShape = shapes.get(selectedShapeKey);
+                    if (selectedShape != null) {
+                        int dx = e.getX() - lastMousePosition.x;
+                        int dy = e.getY() - lastMousePosition.y;
+        
+                        Shape movedShape = moveShape(selectedShape, dx, dy);
+                        shapes.put(selectedShapeKey, movedShape);
+        
+                        lastMousePosition = e.getPoint();
+                        repaint();
+                    }
+                } else {
+                    repaint();
+                }
+            }
+        
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (!interactive) return;
+        
+                endPoint = e.getPoint();
+        
+                if (isMoveMode && selectedShapeKey != null && lastMousePosition != null) {
+                    selectedShapeKey = null;
+                    lastMousePosition = null;
+                    repaint();
+                    return;
+                }
+        
+                if (startPoint != null && endPoint != null && shapeFactory != null) {
+                    Shape newShape = shapeFactory.createForme(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+                    String shapeName = shapeButtonPanel.getCurrentShape();
+                    String key = shapeName + shapeButtonPanel.getNbreRectangle();
+                    shapes.put(key, newShape);
+        
+                    DrawShapeCommand command = new DrawShapeCommand(shapes, key, newShape);
+                    commandHandler.handle(command);
+                    repaint();
+                }
+        
+                startPoint = null;
+                endPoint = null;
             }
         };
+        
         addMouseListener(mouseHandler);
         addMouseMotionListener(mouseHandler);
     }
@@ -90,6 +134,16 @@ public class DrawingPanel extends JPanel {
     public void clearShapes() {
         shapes.clear();
         repaint();
+    }
+
+    public void setMoveMode(boolean isMoveMode) {
+        this.isMoveMode = isMoveMode;
+    }
+
+    // Déplacer une forme
+    private Shape moveShape(Shape shape, int dx, int dy) {
+        AffineTransform transform = AffineTransform.getTranslateInstance(dx, dy);
+        return transform.createTransformedShape(shape);
     }
 
     /**
@@ -123,6 +177,10 @@ public class DrawingPanel extends JPanel {
     public void undo() {
         commandHandler.undo();
         repaint();
+    }
+
+    public boolean isMoveMode() {
+        return isMoveMode;
     }
     
     /**
