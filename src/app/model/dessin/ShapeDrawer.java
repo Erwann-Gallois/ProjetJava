@@ -15,6 +15,7 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -125,8 +126,9 @@ public class ShapeDrawer extends JFrame {
      * @param drawns La forme dessinée par l'utilisateur.
      * @return Un score entre 0 et 100 représentant la précision du dessin.
      */
-    public double evaluateDrawing(ArrayList<Shape> originals, ArrayList<Shape> drawns) {
-        return new ShapeEvaluationStrategyImpl().evaluate(drawns, originals);
+    public double evaluateDrawing(ArrayList<Shape> originals, HashMap<String, Shape> drawns) {
+        ShapeEvaluationStrategyImpl eval = new ShapeEvaluationStrategyImpl();
+        return eval.evaluate(drawns, originals);
     }
 
     /**

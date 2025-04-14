@@ -1,4 +1,4 @@
-package app.model.dessin;
+package app.model.evaluation;
 
 import java.awt.Shape;
 
