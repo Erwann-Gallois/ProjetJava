@@ -45,6 +45,72 @@ public class NiveauxFactory {
         maison.ajouter(new FormeCarre("fenetreDroite", 12, 12, 2, 2));
         niveaux.put(maison.getNom(), maison);
 
+        // Niveau 3 : Arbre
+        Niveau arbre = new Niveau("Arbre");
+        arbre.ajouter(new FormeCercle("couronne", 6, 2, 7, 7));
+        arbre.ajouter(new FormeCarre("tronc", 9, 9, 3, 6));
+        niveaux.put(arbre.getNom(), arbre);
+
+        // Niveau 4 : Voiture
+        Niveau voiture = new Niveau("Voiture");
+        voiture.ajouter(new FormeCarre("corps", 5, 10, 10, 4));
+        voiture.ajouter(new FormeCercle("roueAvant", 6, 14, 3, 3));
+        voiture.ajouter(new FormeCercle("roueArriere", 12, 14, 3, 3));
+        voiture.ajouter(new FormeCarre("fenetre", 9, 11, 2, 2));
+        niveaux.put(voiture.getNom(), voiture);
+
+        // Niveau 5 : Soleil
+        Niveau soleil = new Niveau("Soleil");
+        soleil.ajouter(new FormeCercle("centre", 6, 6, 7, 7));
+        soleil.ajouter(new FormeTriangle("rayon1", 3, 6, 3, 3));
+        soleil.ajouter(new FormeTriangle("rayon2", 12, 3, 3, 3));
+        soleil.ajouter(new FormeTriangle("rayon3", 12, 12, 3, 3));
+        niveaux.put(soleil.getNom(), soleil);
+
+        // Niveau 6 : Fleur
+        Niveau fleur = new Niveau("Fleur");
+        fleur.ajouter(new FormeCercle("coeur", 9, 9, 3, 3));
+        fleur.ajouter(new FormeCercle("petale1", 6, 9, 3, 3));
+        fleur.ajouter(new FormeCercle("petale2", 12, 9, 3, 3));
+        fleur.ajouter(new FormeCercle("petale3", 9, 6, 3, 3));
+        fleur.ajouter(new FormeCercle("petale4", 9, 12, 3, 3));
+        niveaux.put(fleur.getNom(), fleur);
+
+        // Niveau 7 : Bateau
+        Niveau bateau = new Niveau("Bateau");
+        bateau.ajouter(new FormeCarre("corps", 5, 14, 10, 3));
+        bateau.ajouter(new FormeTriangle("voile", 8, 9, 5, 5));
+        bateau.ajouter(new FormeCarre("cabine", 7, 13, 2, 2));
+        niveaux.put(bateau.getNom(), bateau);
+
+        // Niveau 8 : Poisson
+        Niveau poisson = new Niveau("Poisson");
+        poisson.ajouter(new FormeCercle("corps", 8, 8, 5, 5));
+        poisson.ajouter(new FormeTriangle("nageoire", 6, 10, 3, 3));
+        poisson.ajouter(new FormeTriangle("queue", 13, 9, 3, 3));
+        poisson.ajouter(new FormeCercle("oeil", 9, 9, 1, 1));
+        niveaux.put(poisson.getNom(), poisson);
+
+        // Niveau 9 : Bonhomme de Neige
+        Niveau bonhomme = new Niveau("Bonhomme de Neige");
+        bonhomme.ajouter(new FormeCercle("corpsBas", 6, 12, 9, 9));
+        bonhomme.ajouter(new FormeCercle("corpsMilieu", 7, 8, 7, 7));
+        bonhomme.ajouter(new FormeCercle("tete", 8, 4, 5, 5));
+        bonhomme.ajouter(new FormeCercle("oeil1", 9, 5, 1, 1));
+        bonhomme.ajouter(new FormeCercle("oeil2", 11, 5, 1, 1));
+        bonhomme.ajouter(new FormeCercle("nez", 10, 6, 1, 1));
+        bonhomme.ajouter(new FormeTriangle("chapeau", 8, 2, 3, 5));
+        niveaux.put(bonhomme.getNom(), bonhomme);
+
+        // Niveau 10 : Avion
+        Niveau avion = new Niveau("Avion");
+        avion.ajouter(new FormeCarre("corps", 5, 8, 10, 3));
+        avion.ajouter(new FormeTriangle("aileGauche", 2, 9, 3, 4));
+        avion.ajouter(new FormeTriangle("aileDroite", 13, 9, 3, 4));
+        avion.ajouter(new FormeCercle("hublot", 8, 9, 1, 1));
+        avion.ajouter(new FormeTriangle("queue", 15, 7, 2, 3));
+        niveaux.put(avion.getNom(), avion);
+
         return niveaux;
     }
 

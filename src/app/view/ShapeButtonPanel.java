@@ -139,6 +139,9 @@ public class ShapeButtonPanel extends JPanel implements ActionListener {
         return currentShape;
     }
 
+    /**
+     * Méthode pour activer/désactiver le mode de déplacement.
+     */
     private void toggleMoveMode() {
         isMoveMode = !isMoveMode;
         if (isMoveMode) {

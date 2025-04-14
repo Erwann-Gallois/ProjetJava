@@ -136,6 +136,10 @@ public class DrawingPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Setter pour le mode de déplacement.
+     * @param isMoveMode boolean
+     */
     public void setMoveMode(boolean isMoveMode) {
         this.isMoveMode = isMoveMode;
     }
@@ -179,6 +183,10 @@ public class DrawingPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Accesseur pour le mode de déplacement.
+     * @return boolean
+     */
     public boolean isMoveMode() {
         return isMoveMode;
     }
